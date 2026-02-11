@@ -190,12 +190,44 @@
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* Estilos para Bibliografía / Obras Consultadas */
+        .sources-section {
+            max-width: 900px;
+            margin: 4rem auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sources-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .citation {
+            padding-left: 2em;
+            text-indent: -2em;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
         footer {
             background: var(--primary-color);
             color: white;
             text-align: center;
             padding: 3rem 1rem;
-            margin-top: 4rem;
+        }
+
+        .footer-credits {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         @media (max-width: 768px) {
@@ -210,7 +242,7 @@
 
 <header>
     <h1>Origen y Desarrollo de las Telecomunicaciones</h1>
-    <p>Cronología detallada basada en fuentes históricas (Adams, 1994; Ríos et al., 1998)</p>
+    <p>Cronología detallada basada en fuentes históricas</p>
 </header>
 
 <div class="timeline-container">
@@ -495,7 +527,7 @@
                     <h3 class="card-title">Estandarización Radio</h3>
                     <span class="summary-text">Fundación de la IEC e inicios de programas...</span>
                     <div class="card-content">
-                        <p class="full-description">Se transmite el primer programa de radio en América y se funda la International Electrotechnical Commission (IEC), impulsando la estandarización técnica internacional necesaria para el crecimiento global (Adams, 1994).</p>
+                        <p class="full-description">Se transmite el primer programa de radio en América y se funda la International Electrotechnical Commission (IEC), impulsando la estandarización técnica internacional (Adams, 1994).</p>
                     </div>
                 </div>
             </div>
@@ -509,7 +541,7 @@
                     <h3 class="card-title">Voz e Imagen Continental</h3>
                     <span class="summary-text">Llamada transcontinental y transmisión de fotos...</span>
                     <div class="card-content">
-                        <p class="full-description">Se realiza la primera llamada telefónica transcontinental en Estados Unidos y la primera transmisión de fotografía entre Nueva York y Los Ángeles, integrando voz e imagen en redes de larga escala (Adams, 1994).</p>
+                        <p class="full-description">Se realiza la primera llamada telefónica transcontinental en Estados Unidos y la primera transmisión de fotografía entre Nueva York y Los Ángeles, integrando voz e imagen (Adams, 1994).</p>
                     </div>
                 </div>
             </div>
@@ -619,7 +651,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    instances: [{ prompt: prompt + ", vintage historical illustration, high detail" }],
+                    instances: [{ prompt: prompt + ", vintage historical illustration, high detail style" }],
                     parameters: { sampleCount: 1 }
                 })
             });
