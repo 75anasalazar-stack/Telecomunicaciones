@@ -133,6 +133,12 @@
         }
 
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        
+        .img-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         .card-header { padding: 20px; }
         
@@ -254,8 +260,8 @@
         <div class="timeline-item left">
             <div class="card" onclick="toggleCard(this)">
                 <div class="img-box" id="img-antiquity">
-                   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Smoke_signal.jpg" alt="Señales de humo">
-                 </div>
+                    <!-- El simulador de señales de humo se inyectará aquí -->
+                </div>
                 <div class="card-header">
                     <span class="date-tag">Antigüedad – Edad Media</span>
                     <h3 class="card-title">Primeros medios a distancia</h3>
@@ -671,6 +677,82 @@
         if (!isActive) card.classList.add('active');
     }
 
+    // Código del simulador de humo para inyectar
+    const smokeSimCode = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Señales de Humo</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #canvas-container { position: relative; width: 100%; height: 100%; }
+        canvas { display: block; }
+        #ui-layer { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); text-align: center; color: white; pointer-events: none; user-select: none; text-shadow: 0 2px 4px rgba(0,0,0,0.8); width: 90%; }
+        h1 { margin: 0; font-size: 1.2rem; opacity: 0.9; letter-spacing: 2px; text-transform: uppercase; }
+        p { margin: 2px 0 0 0; font-size: 0.8rem; opacity: 0.8; }
+        .controls { margin-top: 5px; pointer-events: auto; display: inline-block; }
+        .action-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); transition: background 0.3s; display: none; font-size: 0.8rem; }
+        @media (max-width: 768px) { .action-btn { display: inline-block; } #ui-layer { bottom: 20px; } }
+    </style>
+</head>
+<body>
+<div id="canvas-container">
+    <canvas id="smokeCanvas"></canvas>
+    <div id="ui-layer">
+        <h1>Señales de Humo</h1>
+        <p>Mantén presionado para acumular humo.</p>
+        <div class="controls"><button id="mobileBtn" class="action-btn">Cubrir Fuego</button></div>
+    </div>
+</div>
+<script>
+    const canvas = document.getElementById('smokeCanvas');
+    const ctx = canvas.getContext('2d');
+    const mobileBtn = document.getElementById('mobileBtn');
+    let width, height, particles = [], fireParticles = [], isHolding = false, holdDuration = 0, fireSource = { x: 0, y: 0 };
+    const GRAVITY = -0.8; const WIND = 0.3;
+    function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; fireSource = { x: width / 2, y: height - 20 }; }
+    window.addEventListener('resize', resize); resize();
+    class FireParticle {
+        constructor() { this.reset(); }
+        reset() { this.x = fireSource.x + (Math.random() - 0.5) * 40; this.y = fireSource.y + 20; this.vx = (Math.random() - 0.5) * 2; this.vy = -Math.random() * 3 - 1; this.size = Math.random() * 8 + 4; this.life = Math.random() * 20 + 10; this.maxLife = this.life; const colors = ['#FF4500', '#FF8C00', '#FFD700', '#FF6347']; this.color = colors[Math.floor(Math.random() * colors.length)]; }
+        update() { this.x += this.vx; this.y += this.vy; this.size *= 0.95; this.life--; if (this.life <= 0 || this.size < 0.5) { this.reset(); } }
+        draw(ctx) { ctx.globalCompositeOperation = 'screen'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill(); ctx.globalCompositeOperation = 'source-over'; }
+    }
+    class SmokeParticle {
+        constructor(x, y, sizeMultiplier = 1) { this.x = x + (Math.random() - 0.5) * 20; this.y = y; this.vx = (Math.random() - 0.5) * 1 + WIND; this.vy = (Math.random() * -1.5 - 0.5); this.size = (Math.random() * 10 + 10) * sizeMultiplier; this.life = 250 + Math.random() * 100; this.maxLife = this.life; this.alpha = 0.4 + Math.random() * 0.2; this.growth = 0.15; this.rotation = Math.random() * Math.PI * 2; this.rotationSpeed = (Math.random() - 0.5) * 0.02; }
+        update() { this.x += this.vx; this.y += this.vy; this.vx += (Math.random() - 0.5) * 0.1; this.size += this.growth; this.alpha = (this.life / this.maxLife) * 0.3; this.rotation += this.rotationSpeed; this.life--; }
+        draw(ctx) { if (this.life <= 0) return; ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rotation); const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size); gradient.addColorStop(0, \`rgba(200, 200, 200, \${this.alpha})\`); gradient.addColorStop(0.4, \`rgba(150, 150, 150, \${this.alpha * 0.5})\`); gradient.addColorStop(1, \`rgba(100, 100, 100, 0)\`); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(0, 0, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+    }
+    for (let i = 0; i < 50; i++) fireParticles.push(new FireParticle());
+    function startHold(e) { if(e.target === mobileBtn) return; isHolding = true; holdDuration = 0; }
+    function endHold() { if (!isHolding) return; const intensity = Math.min(holdDuration, 100); const particleCount = 20 + (intensity * 1.5); const cloudSize = 1 + (intensity / 40); for (let i = 0; i < particleCount; i++) { let startX = fireSource.x + (Math.random() - 0.5) * intensity; let startY = fireSource.y - 20 - (Math.random() * intensity * 0.5); particles.push(new SmokeParticle(startX, startY, cloudSize)); } isHolding = false; holdDuration = 0; }
+    window.addEventListener('mousedown', startHold); window.addEventListener('mouseup', endHold); window.addEventListener('touchstart', (e) => { startHold(e); }); window.addEventListener('touchend', endHold);
+    mobileBtn.addEventListener('touchstart', (e) => { e.stopPropagation(); isHolding = true; holdDuration = 0; mobileBtn.style.background = "rgba(255, 255, 255, 0.5)"; });
+    mobileBtn.addEventListener('touchend', (e) => { e.stopPropagation(); endHold(); mobileBtn.style.background = "rgba(255, 255, 255, 0.2)"; });
+    mobileBtn.addEventListener('mousedown', (e) => { e.stopPropagation(); isHolding = true; holdDuration = 0; mobileBtn.style.background = "rgba(255, 255, 255, 0.5)"; });
+    mobileBtn.addEventListener('mouseup', (e) => { e.stopPropagation(); endHold(); mobileBtn.style.background = "rgba(255, 255, 255, 0.2)"; });
+    function drawLandscape() { const skyGrad = ctx.createLinearGradient(0, 0, 0, height); skyGrad.addColorStop(0, '#4a6fa5'); skyGrad.addColorStop(0.6, '#d48c70'); skyGrad.addColorStop(1, '#e8b89e'); ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, width, height); ctx.fillStyle = '#2c3e50'; ctx.beginPath(); ctx.moveTo(0, height); ctx.lineTo(0, height * 0.7); ctx.lineTo(width * 0.2, height * 0.5); ctx.lineTo(width * 0.5, height * 0.75); ctx.lineTo(width * 0.8, height * 0.4); ctx.lineTo(width, height * 0.65); ctx.lineTo(width, height); ctx.fill(); ctx.fillStyle = '#1a1a1a'; ctx.beginPath(); ctx.moveTo(0, height); ctx.lineTo(0, height * 0.85); ctx.quadraticCurveTo(width/2, height * 0.8, width, height * 0.85); ctx.lineTo(width, height); ctx.fill(); }
+    function drawBlanket() { if (isHolding) { ctx.fillStyle = '#8B4513'; ctx.save(); ctx.translate(fireSource.x, fireSource.y - 30); const shake = Math.sin(Date.now() / 20) * 2; ctx.beginPath(); ctx.moveTo(-60, 0 + shake); ctx.lineTo(60, 0 - shake); ctx.lineTo(50, 40); ctx.lineTo(-50, 40); ctx.closePath(); ctx.fill(); ctx.strokeStyle = '#CD853F'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-50, 10 + shake); ctx.lineTo(50, 10 - shake); ctx.stroke(); ctx.restore(); if (Math.random() > 0.8) { particles.push(new SmokeParticle(fireSource.x + (Math.random()-0.5)*80, fireSource.y, 0.5)); } holdDuration++; } }
+    function animate() { ctx.clearRect(0, 0, width, height); drawLandscape(); fireParticles.forEach(p => { p.update(); p.draw(ctx); }); if (!isHolding && Math.random() > 0.7) { particles.push(new SmokeParticle(fireSource.x, fireSource.y - 10, 0.8)); } for (let i = particles.length - 1; i >= 0; i--) { particles[i].update(); particles[i].draw(ctx); if (particles[i].life <= 0) { particles.splice(i, 1); } } drawBlanket(); requestAnimationFrame(animate); }
+    animate();
+<\/script>
+</body>
+</html>`;
+
+    function loadSmokeSimulator() {
+        const container = document.getElementById('img-antiquity');
+        if (container) {
+            container.innerHTML = '';
+            const iframe = document.createElement('iframe');
+            container.appendChild(iframe);
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(smokeSimCode);
+            iframe.contentWindow.document.close();
+        }
+    }
+
     window.onload = () => {
         // Inicializar animaciones de scroll
         const observer = new IntersectionObserver((entries) => {
@@ -685,8 +767,10 @@
             observer.observe(item);
         });
 
-        // Generar imágenes para cada hito
-        generateImage("Ancient smoke signals beacons on hill", "img-antiquity");
+        // Cargar simulador de humo en lugar de imagen estática
+        loadSmokeSimulator();
+
+        // Generar imágenes para el resto de hitos
         generateImage("18th century naval signal tower mechanical semaphore", "img-mech");
         generateImage("William Watson electricity experiment wire 1746", "img-1746");
         generateImage("Scotsman telegraph 26 wires schematic 1753", "img-1753");
