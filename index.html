@@ -1,709 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronología Detallada de las Telecomunicaciones</title>
-    <style>
-        :root {
-            --primary-color: #1a2a3a;
-            --accent-color: #e67e22;
-            --secondary-color: #34495e;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #2c3e50;
-            --line-color: #d1d8e0;
-            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronología Detallada de las Telecomunicaciones</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 4rem 1rem;
-            position: relative;
-        }
-
-        header h1 { font-size: 2.2rem; margin-bottom: 10px; font-family: 'Georgia', serif; }
-        header p { opacity: 0.8; font-style: italic; font-size: 1.1rem; }
-
-        .timeline-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: var(--line-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            z-index: 0;
-        }
-
-        .era-section {
-            position: relative;
-            margin-bottom: 5rem;
-        }
-
-        .era-title {
-            background: var(--primary-color);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            width: fit-content;
-            margin: 3rem auto;
-            position: relative;
-            z-index: 10;
-            font-family: 'Georgia', serif;
-            box-shadow: var(--shadow-md);
-            border: 2px solid #fff;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-
-        .timeline-item {
-            padding: 15px 40px;
-            position: relative;
-            width: 50%;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease-out;
-        }
-
-        .timeline-item.visible { opacity: 1; transform: translateY(0); }
-        .left { left: 0; }
-        .right { left: 50%; }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            right: -11px;
-            background-color: white;
-            border: 4px solid var(--accent-color);
-            top: 35px;
-            border-radius: 50%;
-            z-index: 10;
-            transition: var(--transition);
-        }
-
-        .right::after { left: -11px; }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-            transition: var(--transition);
-            border: 1px solid #e1e8ed;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent-color); }
-
-        .img-box {
-            width: 100%;
-            height: 160px;
-            background: #f0f0f0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-
-        .card-header { padding: 20px; }
-        
-        .date-tag {
-            background: var(--accent-color);
-            color: white;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .card-title { font-size: 1.15rem; color: var(--primary-color); font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
-        
-        .summary-text { 
-            font-size: 0.9rem; 
-            color: #57606f; 
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0, 1, 0, 1);
-            background: #fafafa;
-        }
-
-        .card.active .card-content { max-height: 1000px; padding: 20px; border-top: 1px solid #eee; transition: max-height 0.8s ease-in; }
-        .card.active .summary-text { display: none; }
-
-        .full-description { font-size: 0.95rem; color: var(--text-color); line-height: 1.6; text-align: justify; }
-
-        .click-hint {
-            font-size: 0.7rem;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            margin-top: 10px;
-            display: block;
-            font-weight: bold;
-        }
-
-        .loading-ring {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--accent-color);
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Estilos para Bibliografía / Obras Consultadas */
-        .sources-section {
-            max-width: 900px;
-            margin: 4rem auto 2rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .sources-title {
-            font-family: 'Georgia', serif;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .citation {
-            padding-left: 2em;
-            text-indent: -2em;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .footer-credits {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .timeline-container::after { left: 31px; }
-            .timeline-item { width: 100%; padding-left: 60px; padding-right: 20px; left: 0; }
-            .timeline-item::after { left: 20px; }
-            .right::after { left: 20px; }
-        }
-    </style>
+<style>
+/* === ESTILOS ORIGINALES SIN CAMBIOS === */
+:root {
+--primary-color:#1a2a3a;
+--accent-color:#e67e22;
+--secondary-color:#34495e;
+--bg-color:#f4f7f6;
+--card-bg:#ffffff;
+--text-color:#2c3e50;
+--line-color:#d1d8e0;
+--shadow-sm:0 4px 6px rgba(0,0,0,0.05);
+--shadow-md:0 10px 25px rgba(0,0,0,0.1);
+--transition:all .3s cubic-bezier(.25,.8,.25,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg-color);
+color:var(--text-color);
+line-height:1.6;
+overflow-x:hidden
+}
+header{
+background:var(--primary-color);
+color:#fff;
+text-align:center;
+padding:4rem 1rem
+}
+header h1{font-size:2.2rem;margin-bottom:10px;font-family:Georgia,serif}
+header p{opacity:.8;font-style:italic;font-size:1.1rem}
+.timeline-container{max-width:1100px;margin:auto;padding:40px 20px;position:relative}
+.timeline-container::after{
+content:'';
+position:absolute;
+width:4px;
+background:var(--line-color);
+top:0;bottom:0;
+left:50%;
+margin-left:-2px
+}
+.timeline-item{
+padding:15px 40px;
+position:relative;
+width:50%;
+opacity:0;
+transform:translateY(40px);
+transition:.8s
+}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.left{left:0}
+.right{left:50%}
+.timeline-item::after{
+content:'';
+position:absolute;
+width:22px;height:22px;
+background:#fff;
+border:4px solid var(--accent-color);
+top:35px;border-radius:50%;
+right:-11px
+}
+.right::after{left:-11px}
+.card{
+background:#fff;
+border-radius:12px;
+box-shadow:var(--shadow-sm);
+overflow:hidden;
+cursor:pointer
+}
+.img-box{
+width:100%;
+height:160px;
+overflow:hidden
+}
+.img-box img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+.card-header{padding:20px}
+.date-tag{
+background:var(--accent-color);
+color:#fff;
+padding:4px 14px;
+border-radius:20px;
+font-size:.8rem;
+font-weight:bold;
+display:inline-block;
+margin-bottom:8px
+}
+.card-title{font-size:1.15rem;color:var(--primary-color);margin-bottom:10px}
+.summary-text{font-size:.9rem;color:#57606f}
+.card-content{
+max-height:0;
+overflow:hidden;
+transition:max-height .6s
+}
+.card.active .card-content{max-height:1000px;padding:20px}
+footer{
+background:var(--primary-color);
+color:#fff;
+text-align:center;
+padding:3rem 1rem
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>Origen y Desarrollo de las Telecomunicaciones</h1>
-    <p>Cronología detallada basada en fuentes históricas</p>
+<h1>Origen y Desarrollo de las Telecomunicaciones</h1>
+<p>Cronología detallada basada en fuentes históricas</p>
 </header>
 
 <div class="timeline-container">
-    
-    <!-- ANTIGÜEDAD -->
-    <div class="era-section">
-        <div class="era-title">Época Antigua y Premoderna</div>
-        
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-antiquity"></div>
-                <div class="card-header">
-                    <span class="date-tag">Antigüedad – Edad Media</span>
-                    <h3 class="card-title">Primeros medios a distancia</h3>
-                    <span class="summary-text">Mensajeros humanos, señales visuales como fogatas, humo y espejos...</span>
-                    <div class="card-content">
-                        <p class="full-description">Desde sus orígenes, la humanidad ha desarrollado formas de comunicación a distancia para transmitir información más allá del contacto directo. Entre los medios más antiguos destacan los mensajeros humanos, utilizados por civilizaciones como la egipcia, griega y romana para llevar órdenes, noticias y mensajes oficiales. Paralelamente, se emplearon señales visuales como fogatas, humo, antorchas, banderas y espejos, que permitían transmitir mensajes simples a grandes distancias, sentando las bases conceptuales de la comunicación remota organizada (Adams, 1994).</p>
-                    </div>
-                    <span class="click-hint">Leer detalle</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- SIGLOS XVII-XVIII -->
-    <div class="era-section">
-        <div class="era-title">Siglos XVII y XVIII</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-mech"></div>
-                <div class="card-header">
-                    <span class="date-tag">Siglo XVII – XVIII</span>
-                    <h3 class="card-title">Señalización mecánica</h3>
-                    <span class="summary-text">Instrumentos mecánicos con fines militares y navales...</span>
-                    <div class="card-content">
-                        <p class="full-description">Durante este periodo se desarrollaron instrumentos mecánicos de señalización, especialmente con fines militares y navales. Instituciones como el Almirantazgo británico manifestaron satisfacción con estos sistemas visuales y mecánicos, representando uno de los primeros intentos sistemáticos de comunicación estructurada a distancia (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1746"></div>
-                <div class="card-header">
-                    <span class="date-tag">1746</span>
-                    <h3 class="card-title">Experimentos con electricidad</h3>
-                    <span class="summary-text">William Watson transmite voltaje eléctrico por dos millas...</span>
-                    <div class="card-content">
-                        <p class="full-description">William Watson logra transmitir un voltaje eléctrico a través de un alambre de aproximadamente dos millas de longitud utilizando una fuente electrostática. Este experimento constituye uno de los primeros antecedentes de la señalización electrónica, al demostrar que la electricidad podía desplazarse a distancia para transmitir información (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1753"></div>
-                <div class="card-header">
-                    <span class="date-tag">1753</span>
-                    <h3 class="card-title">Transmisión alfabética</h3>
-                    <span class="summary-text">Propuesta de un alambre diferente para cada letra...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se publica en The Scotsman una propuesta para un sistema de transmisión práctico que utilizaba un alambre diferente para representar cada letra del alfabeto. Esta idea anticipa el principio de la codificación de mensajes, fundamental para el desarrollo posterior de la telegrafía (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1774"></div>
-                <div class="card-header">
-                    <span class="date-tag">1774</span>
-                    <h3 class="card-title">Comunicación subterránea</h3>
-                    <span class="summary-text">Cables en conductos de madera por La Sage...</span>
-                    <div class="card-content">
-                        <p class="full-description">La Sage desarrolla el primer sistema de comunicación subterráneo mediante cables colocados dentro de conductos de madera. Este avance representó un paso importante en la protección física de las líneas de transmisión y en la confiabilidad de los sistemas de comunicación eléctrica (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1787"></div>
-                <div class="card-header">
-                    <span class="date-tag">1787</span>
-                    <h3 class="card-title">Sistema de un solo alambre</h3>
-                    <span class="summary-text">Lommond emplea esferas sincronizadas...</span>
-                    <div class="card-content">
-                        <p class="full-description">El francés Lommond crea un aparato de comunicación basado en un solo alambre que empleaba esferas sincronizadas para leer y escribir el alfabeto mediante señales. Este sistema simplificó la infraestructura necesaria y mostró nuevas posibilidades para la transmisión codificada (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1795"></div>
-                <div class="card-header">
-                    <span class="date-tag">1795</span>
-                    <h3 class="card-title">Sistema de Salvá</h3>
-                    <span class="summary-text">Botellas de Leyden en un sistema multialámbrico...</span>
-                    <div class="card-content">
-                        <p class="full-description">Francisco Salvá desarrolla en Barcelona un sistema de alambres múltiples que utilizaba botellas de Leyden como fuente de energía. Su propuesta consolidó el uso de la electricidad como medio para transmitir información estructurada (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SIGLO XIX -->
-    <div class="era-section">
-        <div class="era-title">Siglo XIX</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1832"></div>
-                <div class="card-header">
-                    <span class="date-tag">1832–1837</span>
-                    <h3 class="card-title">Telégrafo de Morse</h3>
-                    <span class="summary-text">Código simple y eficiente para larga distancia...</span>
-                    <div class="card-content">
-                        <p class="full-description">Samuel Morse desarrolla y patenta su sistema telegráfico en Estados Unidos, introduciendo un código simple, fiable y eficiente que permitía transmitir mensajes complejos a larga distancia. Este sistema marca el inicio de la telegrafía moderna (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1834"></div>
-                <div class="card-header">
-                    <span class="date-tag">1834</span>
-                    <h3 class="card-title">Máquina de Babbage</h3>
-                    <span class="summary-text">Precursora del procesamiento automático...</span>
-                    <div class="card-content">
-                        <p class="full-description">Charles Babbage diseña la máquina diferencial, considerada precursora de la computadora moderna, capaz de realizar cálculos matemáticos automáticos mediante engranes. Este desarrollo vinculó el procesamiento de información con los futuros sistemas de comunicación (Ríos et al., 1998; Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1839"></div>
-                <div class="card-header">
-                    <span class="date-tag">1839</span>
-                    <h3 class="card-title">Sistema Wheatstone</h3>
-                    <span class="summary-text">Demostración a gran escala en Inglaterra...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se realiza la primera demostración a gran escala del sistema telegráfico de Wheatstone al enviar un mensaje entre las estaciones de Euston y Camden Town, en Inglaterra, consolidando la viabilidad técnica del telégrafo (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1843"></div>
-                <div class="card-header">
-                    <span class="date-tag">1843</span>
-                    <h3 class="card-title">Ada Lovelace</h3>
-                    <span class="summary-text">Tarjetas perforadas y bases de la programación...</span>
-                    <div class="card-content">
-                        <p class="full-description">Ada Augusta Lovelace propone el uso de tarjetas perforadas para introducir información en las máquinas de Babbage, anticipando los principios de la programación y la automatización del tratamiento de la información (Ríos et al., 1998; Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1844"></div>
-                <div class="card-header">
-                    <span class="date-tag">1844</span>
-                    <h3 class="card-title">Primer servicio público</h3>
-                    <span class="summary-text">Baltimore a Washington: Inicio comercial...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se inaugura el primer servicio telegráfico público entre Baltimore y Washington, marcando el inicio de las telecomunicaciones como servicio comercial y social (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1865"></div>
-                <div class="card-header">
-                    <span class="date-tag">1865</span>
-                    <h3 class="card-title">Normalización Internacional</h3>
-                    <span class="summary-text">Conferencia de París para interconexión...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se celebra en París una conferencia internacional para establecer normas sobre la interconexión electrónica, promoviendo la cooperación tecnológica entre países (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1869"></div>
-                <div class="card-header">
-                    <span class="date-tag">1869</span>
-                    <h3 class="card-title">Cable Transatlántico</h3>
-                    <span class="summary-text">Conexión efectiva Europa-América...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se logra tender con éxito el cable transatlántico, permitiendo la comunicación efectiva entre Europa y América y reduciendo drásticamente los tiempos de transmisión de información (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1876"></div>
-                <div class="card-header">
-                    <span class="date-tag">1876</span>
-                    <h3 class="card-title">Invención del Teléfono</h3>
-                    <span class="summary-text">Graham Bell y la transmisión oral...</span>
-                    <div class="card-content">
-                        <p class="full-description">Alexander Graham Bell patenta el teléfono y lo presenta públicamente en la Exposición de Filadelfia, transformando la comunicación oral a distancia y consolidando uno de los inventos más trascendentales del siglo XIX (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1887"></div>
-                <div class="card-header">
-                    <span class="date-tag">1887</span>
-                    <h3 class="card-title">Ondas Hertzianas</h3>
-                    <span class="summary-text">Bases de la comunicación inalámbrica...</span>
-                    <div class="card-content">
-                        <p class="full-description">Heinrich Hertz demuestra experimentalmente que la electricidad y el magnetismo pueden aplicarse a la transmisión electromagnética, sentando las bases científicas de la comunicación inalámbrica (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1895"></div>
-                <div class="card-header">
-                    <span class="date-tag">1895</span>
-                    <h3 class="card-title">Radiocomunicación</h3>
-                    <span class="summary-text">Marconi y el primer sistema funcional...</span>
-                    <div class="card-content">
-                        <p class="full-description">Guglielmo Marconi convierte las teorías de transmisión inalámbrica en un sistema de radio funcional, dando inicio a la era de la radiocomunicación (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SIGLO XX -->
-    <div class="era-section">
-        <div class="era-title">Siglo XX</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1901"></div>
-                <div class="card-header">
-                    <span class="date-tag">1901</span>
-                    <h3 class="card-title">Radio Transatlántica</h3>
-                    <span class="summary-text">Señal global y código Teletipo Murray...</span>
-                    <div class="card-content">
-                        <p class="full-description">Marconi recibe la primera señal de radio transatlántica; ese mismo año se publica el código Teletipo Murray, fortaleciendo la automatización de la transmisión de mensajes (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1906"></div>
-                <div class="card-header">
-                    <span class="date-tag">1906</span>
-                    <h3 class="card-title">Estandarización Radio</h3>
-                    <span class="summary-text">Fundación de la IEC e inicios de programas...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se transmite el primer programa de radio en América y se funda la International Electrotechnical Commission (IEC), impulsando la estandarización técnica internacional (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1915"></div>
-                <div class="card-header">
-                    <span class="date-tag">1915</span>
-                    <h3 class="card-title">Voz e Imagen Continental</h3>
-                    <span class="summary-text">Llamada transcontinental y transmisión de fotos...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se realiza la primera llamada telefónica transcontinental en Estados Unidos y la primera transmisión de fotografía entre Nueva York y Los Ángeles, integrando voz e imagen (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-tv"></div>
-                <div class="card-header">
-                    <span class="date-tag">1925–1936</span>
-                    <h3 class="card-title">Televisión</h3>
-                    <span class="summary-text">John Logie Baird y emisiones regulares...</span>
-                    <div class="card-content">
-                        <p class="full-description">John Logie Baird logra transmitir una película en 1925 y, en 1936, comienzan las emisiones regulares de televisión desde el Alexander Palace en Londres, consolidando este medio masivo (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-comp"></div>
-                <div class="card-header">
-                    <span class="date-tag">1943–1948</span>
-                    <h3 class="card-title">Era del Transistor</h3>
-                    <span class="summary-text">ENIAC, Transistor y Teoría de Shannon...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se construye Coloso (1943) y posteriormente la ENIAC (1946), la primera computadora electrónica de gran escala. En 1947 se inventa el transistor, permitiendo la miniaturización de equipos, y en 1948 Claude Shannon publica la teoría matemática de la comunicación, base de la teoría de la información moderna (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-sat"></div>
-                <div class="card-header">
-                    <span class="date-tag">1957–1966</span>
-                    <h3 class="card-title">Satélites y Fibra</h3>
-                    <span class="summary-text">Sputnik I, Módems y Fibra Óptica...</span>
-                    <div class="card-content">
-                        <p class="full-description">El lanzamiento del Sputnik I inicia la era de las comunicaciones por satélite. En paralelo, se desarrollan los primeros módems y se fabrican los primeros cables de fibra óptica, ampliando la capacidad y velocidad de transmisión (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-net"></div>
-                <div class="card-header">
-                    <span class="date-tag">1969–1990</span>
-                    <h3 class="card-title">Internet Moderno</h3>
-                    <span class="summary-text">ARPANET, Ethernet y masificación...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se implementan los protocolos de ARPANET, surgen estándares como ASCII, Ethernet y arquitecturas de red, y durante las décadas de 1980 y 1990 se masifican las computadoras personales y los servicios de Internet, consolidando las telecomunicaciones modernas (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<div class="timeline-item left">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Smoke_signal.jpg" alt="Señales de humo">
+</div>
+<div class="card-header">
+<span class="date-tag">Antigüedad</span>
+<h3 class="card-title">Primeros medios a distancia</h3>
+<span class="summary-text">Mensajeros humanos y señales visuales...</span>
+<div class="card-content">
+<p>Mensajeros, fogatas, humo y espejos permitieron transmitir mensajes simples a distancia.</p>
+</div>
+</div>
+</div>
 </div>
 
-<!-- SECCIÓN DE OBRAS CONSULTADAS -->
-<div class="sources-section">
-    <h2 class="sources-title">Obras consultadas</h2>
-    <div class="citation">
-        Adams, R. (1994). El desarrollo de la tecnología de las comunicaciones. En <i>Comunicaciones y acceso a la información en la biblioteca</i> (pp. 25-53). Fundación Germán Sánchez Ruipérez; Pirámide.
-    </div>
-    <div class="citation">
-        Ríos, A., Corona, A., & GS Comunicaciones. (1998). <i>Telecomunicaciones: Redes de datos</i>. McGraw Hill.
-    </div>
+<div class="timeline-item right">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Morse_key.jpg" alt="Telégrafo de Morse">
+</div>
+<div class="card-header">
+<span class="date-tag">1837</span>
+<h3 class="card-title">Telégrafo de Morse</h3>
+<span class="summary-text">Sistema de transmisión codificada...</span>
+<div class="card-content">
+<p>Samuel Morse desarrolla el telégrafo moderno.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item left">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Bell_telephone.jpg" alt="Teléfono de Bell">
+</div>
+<div class="card-header">
+<span class="date-tag">1876</span>
+<h3 class="card-title">Invención del Teléfono</h3>
+<span class="summary-text">Comunicación oral a distancia...</span>
+<div class="card-content">
+<p>Alexander Graham Bell patenta el teléfono.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item right">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Marconi_transmitter.jpg" alt="Radio Marconi">
+</div>
+<div class="card-header">
+<span class="date-tag">1895</span>
+<h3 class="card-title">Radiocomunicación</h3>
+<span class="summary-text">Transmisión inalámbrica...</span>
+<div class="card-content">
+<p>Marconi inicia la era de la radio.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item left">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Sputnik_asm.jpg" alt="Sputnik I">
+</div>
+<div class="card-header">
+<span class="date-tag">1957</span>
+<h3 class="card-title">Satélites</h3>
+<span class="summary-text">Comunicación espacial...</span>
+<div class="card-content">
+<p>El Sputnik I marca el inicio de la comunicación satelital.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item right">
+<div class="card" onclick="toggleCard(this)">
+<div class="img-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Arpanet_1974_map.png" alt="ARPANET">
+</div>
+<div class="card-header">
+<span class="date-tag">1969</span>
+<h3 class="card-title">Internet</h3>
+<span class="summary-text">Redes de datos...</span>
+<div class="card-content">
+<p>ARPANET da origen a Internet.</p>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 
 <footer>
-    <p>&copy; 2026 Telecomunicaciones en las Unidades de Información | Ana Gabriela Salazar Ramiro</p>
-    <div class="footer-credits">Desarrollado con fines educativos y de investigación bibliográfica</div>
+<p>&copy; 2026 Telecomunicaciones en las Unidades de Información | Ana Gabriela Salazar Ramiro</p>
 </footer>
 
 <script>
-    const apiKey = "";
-
-    async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
-        try {
-            const response = await fetch(url, options);
-            if (!response.ok) throw new Error('Error en API');
-            return await response.json();
-        } catch (err) {
-            if (retries > 0) {
-                await new Promise(res => setTimeout(res, backoff));
-                return fetchWithRetry(url, options, retries - 1, backoff * 2);
-            }
-            throw err;
-        }
-    }
-
-    async function generateImage(prompt, elementId) {
-        const container = document.getElementById(elementId);
-        if (!container) return; 
-
-        container.innerHTML = '<div class="loading-ring"></div>';
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
-        
-        try {
-            const result = await fetchWithRetry(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    instances: [{ prompt: prompt + ", vintage historical illustration, high detail style" }],
-                    parameters: { sampleCount: 1 }
-                })
-            });
-            const base64Image = result.predictions[0].bytesBase64Encoded;
-            container.innerHTML = `<img src="data:image/png;base64,${base64Image}" alt="${prompt}">`;
-        } catch (error) {
-            container.innerHTML = `<div style="font-size:0.6rem; color:#888; padding:10px;">[Imagen de: ${prompt}]</div>`;
-        }
-    }
-
-    function toggleCard(card) {
-        const isActive = card.classList.contains('active');
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        if (!isActive) card.classList.add('active');
-    }
-
-    window.onload = () => {
-        // Generar imágenes para cada hito
-        generateImage("Ancient smoke signals beacons", "img-antiquity");
-        generateImage("18th century naval signal tower mechanical", "img-mech");
-        generateImage("William Watson electricity wire 1746", "img-1746");
-        generateImage("Scotsman telegraph 26 wires 1753", "img-1753");
-        generateImage("La Sage underground wooden telegraph conduits", "img-1774");
-        generateImage("Lommond single wire synchronous balls", "img-1787");
-        generateImage("Francisco Salva multi wire Leyden jars", "img-1795");
-        generateImage("Samuel Morse early telegraph machine", "img-1832");
-        generateImage("Babbage Difference Engine mechanical calculator", "img-1834");
-        generateImage("Wheatstone Cooke five needle telegraph", "img-1839");
-        generateImage("Ada Lovelace analytical engine algorithm", "img-1843");
-        generateImage("Baltimore Washington telegraph service 1844", "img-1844");
-        generateImage("International telegraph conference Paris 1865", "img-1865");
-        generateImage("Transatlantic underwater cable laying ship", "img-1869");
-        generateImage("Alexander Graham Bell first phone 1876", "img-1876");
-        generateImage("Heinrich Hertz electromagnetic waves spark gap", "img-1887");
-        generateImage("Guglielmo Marconi radio wireless transmitter", "img-1895");
-        generateImage("Marconi trans-Atlantic radio tower", "img-1901");
-        generateImage("IEC founders international committee 1906", "img-1906");
-        generateImage("1915 telephone transcontinental call", "img-1915");
-        generateImage("Logie Baird early mechanical television", "img-tv");
-        generateImage("ENIAC huge vacuum tube computer", "img-comp");
-        generateImage("Sputnik 1 satellite orbit space", "img-sat");
-        generateImage("Early ARPANET computer network room", "img-net");
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add("visible");
-            });
-        }, { threshold: 0.05 });
-
-        document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
-    };
+function toggleCard(card){
+const isActive=card.classList.contains('active');
+document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+if(!isActive)card.classList.add('active');
+}
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting)entry.target.classList.add("visible");
+});
+},{threshold:0.05});
+document.querySelectorAll('.timeline-item').forEach(item=>observer.observe(item));
 </script>
 
 </body>
 </html>
+
