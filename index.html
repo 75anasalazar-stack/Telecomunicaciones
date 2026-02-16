@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronología Detallada de las Telecomunicaciones</title>
-    <style>
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronología Detallada de las Telecomunicaciones</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
         :root {
             --primary-color: #1a2a3a;
             --accent-color: #e67e22;
@@ -20,11 +22,23 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #app-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
             overflow-x: hidden;
         }
 
@@ -36,8 +50,17 @@
             position: relative;
         }
 
-        header h1 { font-size: 2.2rem; margin-bottom: 10px; font-family: 'Georgia', serif; }
-        header p { opacity: 0.8; font-style: italic; font-size: 1.1rem; }
+        header h1 { 
+            font-size: 2.2rem; 
+            margin-bottom: 10px; 
+            font-family: 'Georgia', serif; 
+        }
+        
+        header p { 
+            opacity: 0.8; 
+            font-style: italic; 
+            font-size: 1.1rem; 
+        }
 
         .timeline-container {
             max-width: 1100px;
@@ -88,9 +111,18 @@
             transition: all 0.8s ease-out;
         }
 
-        .timeline-item.visible { opacity: 1; transform: translateY(0); }
-        .left { left: 0; }
-        .right { left: 50%; }
+        .timeline-item.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .left { 
+            left: 0; 
+        }
+
+        .right { 
+            left: 50%; 
+        }
 
         .timeline-item::after {
             content: '';
@@ -106,7 +138,9 @@
             transition: var(--transition);
         }
 
-        .right::after { left: -11px; }
+        .right::after { 
+            left: -11px; 
+        }
 
         .card {
             background: var(--card-bg);
@@ -119,7 +153,11 @@
             position: relative;
         }
 
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent-color); }
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-md); 
+            border-color: var(--accent-color); 
+        }
 
         .img-box {
             width: 100%;
@@ -149,7 +187,9 @@
             border: none;
         }
 
-        .card-header { padding: 20px; }
+        .card-header { 
+            padding: 20px; 
+        }
         
         .date-tag {
             background: var(--accent-color);
@@ -162,7 +202,13 @@
             margin-bottom: 8px;
         }
 
-        .card-title { font-size: 1.15rem; color: var(--primary-color); font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+        .card-title { 
+            font-size: 1.15rem; 
+            color: var(--primary-color); 
+            font-weight: 700; 
+            margin-bottom: 10px; 
+            line-height: 1.3; 
+        }
         
         .summary-text { 
             font-size: 0.9rem; 
@@ -180,10 +226,23 @@
             background: #fafafa;
         }
 
-        .card.active .card-content { max-height: 1000px; padding: 20px; border-top: 1px solid #eee; transition: max-height 0.8s ease-in; }
-        .card.active .summary-text { display: none; }
+        .card.active .card-content { 
+            max-height: 1000px; 
+            padding: 20px; 
+            border-top: 1px solid #eee; 
+            transition: max-height 0.8s ease-in; 
+        }
 
-        .full-description { font-size: 0.95rem; color: var(--text-color); line-height: 1.6; text-align: justify; }
+        .card.active .summary-text { 
+            display: none; 
+        }
+
+        .full-description { 
+            font-size: 0.95rem; 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            text-align: justify; 
+        }
 
         .click-hint {
             font-size: 0.7rem;
@@ -234,554 +293,497 @@
         }
 
         @media (max-width: 768px) {
-            .timeline-container::after { left: 31px; }
-            .timeline-item { width: 100%; padding-left: 60px; padding-right: 20px; left: 0; }
-            .timeline-item::after { left: 20px; }
-            .right::after { left: 20px; }
-            .img-box { height: 160px; }
+            .timeline-container::after { 
+                left: 31px; 
+            }
+
+            .timeline-item { 
+                width: 100%; 
+                padding-left: 60px; 
+                padding-right: 20px; 
+                left: 0; 
+            }
+
+            .timeline-item::after { 
+                left: 20px; 
+            }
+
+            .right::after { 
+                left: 20px; 
+            }
+
+            .img-box { 
+                height: 160px; 
+            }
+
+            header h1 { 
+                font-size: 1.6rem; 
+            }
+
+            header p { 
+                font-size: 0.95rem; 
+            }
         }
     </style>
-</head>
-<body>
-
-<header>
-    <h1>Origen y Desarrollo de las Telecomunicaciones</h1>
-    <p>Cronología detallada basada en fuentes históricas</p>
-</header>
-
-<div class="timeline-container">
-    
-    <!-- ANTIGÜEDAD -->
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div id="app-wrapper">
+   <header>
+    <h1 id="main-title">Origen y Desarrollo de las Telecomunicaciones</h1>
+    <p id="main-subtitle">Cronología detallada basada en fuentes históricas</p>
+   </header>
+   <div class="timeline-container">
     <div class="era-section">
-        <div class="era-title">Época Antigua y Premoderna</div>
-        
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-antiquity"></div>
-                <div class="card-header">
-                    <span class="date-tag">Antigüedad – Edad Media</span>
-                    <h3 class="card-title">Primeros medios a distancia</h3>
-                    <span class="summary-text">Mensajeros humanos, señales visuales como fogatas, humo y espejos...</span>
-                    <div class="card-content">
-                        <p class="full-description">Desde sus orígenes, la humanidad ha desarrollado formas de comunicación a distancia para transmitir información más allá del contacto directo. Entre los medios más antiguos destacan los mensajeros humanos, utilizados por civilizaciones como la egipcia, griega y romana para llevar órdenes, noticias y mensajes oficiales. Paralelamente, se emplearon señales visuales como fogatas, humo, antorchas, banderas y espejos, que permitían transmitir mensajes simples a grandes distancias, sentando las bases conceptuales de la comunicación remota organizada (Adams, 1994).</p>
-                    </div>
-                    <span class="click-hint">Leer detalle</span>
-                </div>
-            </div>
-        </div>
+     <div class="era-title">
+      Época Antigua y Premoderna
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-antiquity"></div>
+       <div class="card-header">
+        <span class="date-tag">Antigüedad – Edad Media</span>
+        <h3 class="card-title">Primeros medios a distancia</h3><span class="summary-text">Mensajeros humanos, señales visuales como fogatas, humo y espejos...</span>
+        <div class="card-content">
+         <p class="full-description">Desde sus orígenes, la humanidad ha desarrollado formas de comunicación a distancia para transmitir información más allá del contacto directo. Entre los medios más antiguos destacan los mensajeros humanos, utilizados por civilizaciones como la egipcia, griega y romana para llevar órdenes, noticias y mensajes oficiales. Paralelamente, se emplearon señales visuales como fogatas, humo, antorchas, banderas y espejos, que permitían transmitir mensajes simples a grandes distancias, sentando las bases conceptuales de la comunicación remota organizada (Adams, 1994).</p>
+        </div><span class="click-hint">Leer detalle</span>
+       </div>
+      </div>
+     </div>
     </div>
-
-    <!-- SIGLOS XVII-XVIII -->
     <div class="era-section">
-        <div class="era-title">Siglos XVII y XVIII</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-mech"></div>
-                <div class="card-header">
-                    <span class="date-tag">Siglo XVII – XVIII</span>
-                    <h3 class="card-title">Señalización mecánica</h3>
-                    <span class="summary-text">Instrumentos mecánicos con fines militares y navales...</span>
-                    <div class="card-content">
-                        <p class="full-description">Durante este periodo se desarrollaron instrumentos mecánicos de señalización, especialmente con fines militares y navales. Instituciones como el Almirantazgo británico manifestaron satisfacción con estos sistemas visuales y mecánicos, representando uno de los primeros intentos sistemáticos de comunicación estructurada a distancia (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+     <div class="era-title">
+      Siglos XVII y XVIII
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-mech"></div>
+       <div class="card-header">
+        <span class="date-tag">Siglo XVII – XVIII</span>
+        <h3 class="card-title">Señalización mecánica</h3><span class="summary-text">Instrumentos mecánicos con fines militares y navales...</span>
+        <div class="card-content">
+         <p class="full-description">Durante este periodo se desarrollaron instrumentos mecánicos de señalización, especialmente con fines militares y navales. Instituciones como el Almirantazgo británico manifestaron satisfacción con estos sistemas visuales y mecánicos, representando uno de los primeros intentos sistemáticos de comunicación estructurada a distancia (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1746"></div>
-                <div class="card-header">
-                    <span class="date-tag">1746</span>
-                    <h3 class="card-title">Experimentos con electricidad</h3>
-                    <span class="summary-text">William Watson transmite voltaje eléctrico por dos millas...</span>
-                    <div class="card-content">
-                        <p class="full-description">William Watson logra transmitir un voltaje eléctrico a través de un alambre de aproximadamente dos millas de longitud utilizando una fuente electrostática. Este experimento constituye uno de los primeros antecedentes de la señalización electrónica, al demostrar que la electricidad podía desplazarse a distancia para transmitir información (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1746"></div>
+       <div class="card-header">
+        <span class="date-tag">1746</span>
+        <h3 class="card-title">Experimentos con electricidad</h3><span class="summary-text">William Watson transmite voltaje eléctrico por dos millas...</span>
+        <div class="card-content">
+         <p class="full-description">William Watson logra transmitir un voltaje eléctrico a través de un alambre de aproximadamente dos millas de longitud utilizando una fuente electrostática. Este experimento constituye uno de los primeros antecedentes de la señalización electrónica, al demostrar que la electricidad podía desplazarse a distancia para transmitir información (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1753"></div>
-                <div class="card-header">
-                    <span class="date-tag">1753</span>
-                    <h3 class="card-title">Transmisión alfabética</h3>
-                    <span class="summary-text">Propuesta de un alambre diferente para cada letra...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se publica en The Scotsman una propuesta para un sistema de transmisión práctico que utilizaba un alambre diferente para representar cada letra del alfabeto. Esta idea anticipa el principio de la codificación de mensajes, fundamental para el desarrollo posterior de la telegrafía (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1753"></div>
+       <div class="card-header">
+        <span class="date-tag">1753</span>
+        <h3 class="card-title">Transmisión alfabética</h3><span class="summary-text">Propuesta de un alambre diferente para cada letra...</span>
+        <div class="card-content">
+         <p class="full-description">Se publica en The Scotsman una propuesta para un sistema de transmisión práctico que utilizaba un alambre diferente para representar cada letra del alfabeto. Esta idea anticipa el principio de la codificación de mensajes, fundamental para el desarrollo posterior de la telegrafía (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1774"></div>
-                <div class="card-header">
-                    <span class="date-tag">1774</span>
-                    <h3 class="card-title">Comunicación subterránea</h3>
-                    <span class="summary-text">Cables en conductos de madera por La Sage...</span>
-                    <div class="card-content">
-                        <p class="full-description">La Sage desarrolla el primer sistema de comunicación subterráneo mediante cables colocados dentro de conductos de madera. Este avance representó un paso importante en la protección física de las líneas de transmisión y en la confiabilidad de los sistemas de comunicación eléctrica (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1774"></div>
+       <div class="card-header">
+        <span class="date-tag">1774</span>
+        <h3 class="card-title">Comunicación subterránea</h3><span class="summary-text">Cables en conductos de madera por La Sage...</span>
+        <div class="card-content">
+         <p class="full-description">La Sage desarrolla el primer sistema de comunicación subterráneo mediante cables colocados dentro de conductos de madera. Este avance representó un paso importante en la protección física de las líneas de transmisión y en la confiabilidad de los sistemas de comunicación eléctrica (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1787"></div>
-                <div class="card-header">
-                    <span class="date-tag">1787</span>
-                    <h3 class="card-title">Sistema de un solo alambre</h3>
-                    <span class="summary-text">Lommond emplea esferas sincronizadas...</span>
-                    <div class="card-content">
-                        <p class="full-description">El francés Lommond crea un aparato de comunicación basado en un solo alambre que empleaba esferas sincronizadas para leer y escribir el alfabeto mediante señales. Este sistema simplificó la infraestructura necesaria y mostró nuevas posibilidades para la transmisión codificada (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1787"></div>
+       <div class="card-header">
+        <span class="date-tag">1787</span>
+        <h3 class="card-title">Sistema de un solo alambre</h3><span class="summary-text">Lommond emplea esferas sincronizadas...</span>
+        <div class="card-content">
+         <p class="full-description">El francés Lommond crea un aparato de comunicación basado en un solo alambre que empleaba esferas sincronizadas para leer y escribir el alfabeto mediante señales. Este sistema simplificó la infraestructura necesaria y mostró nuevas posibilidades para la transmisión codificada (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1795"></div>
-                <div class="card-header">
-                    <span class="date-tag">1795</span>
-                    <h3 class="card-title">Sistema de Salvá</h3>
-                    <span class="summary-text">Botellas de Leyden en un sistema multialámbrico...</span>
-                    <div class="card-content">
-                        <p class="full-description">Francisco Salvá desarrolla en Barcelona un sistema de alambres múltiples que utilizaba botellas de Leyden como fuente de energía. Su propuesta consolidó el uso de la electricidad como medio para transmitir información estructurada (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1795"></div>
+       <div class="card-header">
+        <span class="date-tag">1795</span>
+        <h3 class="card-title">Sistema de Salvá</h3><span class="summary-text">Botellas de Leyden en un sistema multialámbrico...</span>
+        <div class="card-content">
+         <p class="full-description">Francisco Salvá desarrolla en Barcelona un sistema de alambres múltiples que utilizaba botellas de Leyden como fuente de energía. Su propuesta consolidó el uso de la electricidad como medio para transmitir información estructurada (Adams, 1994).</p>
         </div>
+       </div>
+      </div>
+     </div>
     </div>
-
-    <!-- SIGLO XIX -->
     <div class="era-section">
-        <div class="era-title">Siglo XIX</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1832"></div>
-                <div class="card-header">
-                    <span class="date-tag">1832–1837</span>
-                    <h3 class="card-title">Telégrafo de Morse</h3>
-                    <span class="summary-text">Código simple y eficiente para larga distancia...</span>
-                    <div class="card-content">
-                        <p class="full-description">Samuel Morse desarrolla y patenta su sistema telegráfico en Estados Unidos, introduciendo un código simple, fiable y eficiente que permitía transmitir mensajes complejos a larga distancia. Este sistema marca el inicio de la telegrafía moderna (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+     <div class="era-title">
+      Siglo XIX
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1832"></div>
+       <div class="card-header">
+        <span class="date-tag">1832–1837</span>
+        <h3 class="card-title">Telégrafo de Morse</h3><span class="summary-text">Código simple y eficiente para larga distancia...</span>
+        <div class="card-content">
+         <p class="full-description">Samuel Morse desarrolla y patenta su sistema telegráfico en Estados Unidos, introduciendo un código simple, fiable y eficiente que permitía transmitir mensajes complejos a larga distancia. Este sistema marca el inicio de la telegrafía moderna (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1834"></div>
-                <div class="card-header">
-                    <span class="date-tag">1834</span>
-                    <h3 class="card-title">Máquina de Babbage</h3>
-                    <span class="summary-text">Precursora del procesamiento automático...</span>
-                    <div class="card-content">
-                        <p class="full-description">Charles Babbage diseña la máquina diferencial, considerada precursora de la computadora moderna, capaz de realizar cálculos matemáticos automáticos mediante engranes. Este desarrollo vinculó el procesamiento de información con los futuros sistemas de comunicación (Ríos et al., 1998; Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1834"></div>
+       <div class="card-header">
+        <span class="date-tag">1834</span>
+        <h3 class="card-title">Máquina de Babbage</h3><span class="summary-text">Precursora del procesamiento automático...</span>
+        <div class="card-content">
+         <p class="full-description">Charles Babbage diseña la máquina diferencial, considerada precursora de la computadora moderna, capaz de realizar cálculos matemáticos automáticos mediante engranes. Este desarrollo vinculó el procesamiento de información con los futuros sistemas de comunicación (Ríos et al., 1998; Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1839"></div>
-                <div class="card-header">
-                    <span class="date-tag">1839</span>
-                    <h3 class="card-title">Sistema Wheatstone</h3>
-                    <span class="summary-text">Demostración a gran escala en Inglaterra...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se realiza la primera demostración a gran escala del sistema telegráfico de Wheatstone al enviar un mensaje entre las estaciones de Euston y Camden Town, en Inglaterra, consolidando la viabilidad técnica del telégrafo (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1839"></div>
+       <div class="card-header">
+        <span class="date-tag">1839</span>
+        <h3 class="card-title">Sistema Wheatstone</h3><span class="summary-text">Demostración a gran escala en Inglaterra...</span>
+        <div class="card-content">
+         <p class="full-description">Se realiza la primera demostración a gran escala del sistema telegráfico de Wheatstone al enviar un mensaje entre las estaciones de Euston y Camden Town, en Inglaterra, consolidando la viabilidad técnica del telégrafo (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1843"></div>
-                <div class="card-header">
-                    <span class="date-tag">1843</span>
-                    <h3 class="card-title">Ada Lovelace</h3>
-                    <span class="summary-text">Tarjetas perforadas y bases de la programación...</span>
-                    <div class="card-content">
-                        <p class="full-description">Ada Augusta Lovelace propone el uso de tarjetas perforadas para introducir información en las máquinas de Babbage, anticipando los principios de la programación y la automatización del tratamiento de la información (Ríos et al., 1998; Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1843"></div>
+       <div class="card-header">
+        <span class="date-tag">1843</span>
+        <h3 class="card-title">Ada Lovelace</h3><span class="summary-text">Tarjetas perforadas y bases de la programación...</span>
+        <div class="card-content">
+         <p class="full-description">Ada Augusta Lovelace propone el uso de tarjetas perforadas para introducir información en las máquinas de Babbage, anticipando los principios de la programación y la automatización del tratamiento de la información (Ríos et al., 1998; Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1844"></div>
-                <div class="card-header">
-                    <span class="date-tag">1844</span>
-                    <h3 class="card-title">Primer servicio público</h3>
-                    <span class="summary-text">Baltimore a Washington: Inicio comercial...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se inaugura el primer servicio telegráfico público entre Baltimore y Washington, marcando el inicio de las telecomunicaciones como servicio comercial y social (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1844"></div>
+       <div class="card-header">
+        <span class="date-tag">1844</span>
+        <h3 class="card-title">Primer servicio público</h3><span class="summary-text">Baltimore a Washington: Inicio comercial...</span>
+        <div class="card-content">
+         <p class="full-description">Se inaugura el primer servicio telegráfico público entre Baltimore y Washington, marcando el inicio de las telecomunicaciones como servicio comercial y social (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1865"></div>
-                <div class="card-header">
-                    <span class="date-tag">1865</span>
-                    <h3 class="card-title">Normalización Internacional</h3>
-                    <span class="summary-text">Conferencia de París para interconexión...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se celebra en París una conferencia internacional para establecer normas sobre la interconexión electrónica, promoviendo la cooperación tecnológica entre países (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1865"></div>
+       <div class="card-header">
+        <span class="date-tag">1865</span>
+        <h3 class="card-title">Normalización Internacional</h3><span class="summary-text">Conferencia de París para interconexión...</span>
+        <div class="card-content">
+         <p class="full-description">Se celebra en París una conferencia internacional para establecer normas sobre la interconexión electrónica, promoviendo la cooperación tecnológica entre países (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1869"></div>
-                <div class="card-header">
-                    <span class="date-tag">1869</span>
-                    <h3 class="card-title">Cable Transatlántico</h3>
-                    <span class="summary-text">Conexión efectiva Europa-América...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se logra tender con éxito el cable transatlántico, permitiendo la comunicación efectiva entre Europa y América y reduciendo drásticamente los tiempos de transmisión de información (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1869"></div>
+       <div class="card-header">
+        <span class="date-tag">1869</span>
+        <h3 class="card-title">Cable Transatlántico</h3><span class="summary-text">Conexión efectiva Europa-América...</span>
+        <div class="card-content">
+         <p class="full-description">Se logra tender con éxito el cable transatlántico, permitiendo la comunicación efectiva entre Europa y América y reduciendo drásticamente los tiempos de transmisión de información (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1876">
-                    <img src="images/Gemini_Generated_Image_1adyac1adyac1ady.png" alt="Invención del Teléfono">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1876</span>
-                    <h3 class="card-title">Invención del Teléfono</h3>
-                    <span class="summary-text">Graham Bell y la transmisión oral...</span>
-                    <div class="card-content">
-                        <p class="full-description">Alexander Graham Bell patenta el teléfono y lo presenta públicamente en la Exposición de Filadelfia, transformando la comunicación oral a distancia y consolidando uno de los inventos más trascendentales del siglo XIX (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1876"></div>
+       <div class="card-header">
+        <span class="date-tag">1876</span>
+        <h3 class="card-title">Invención del Teléfono</h3><span class="summary-text">Graham Bell y la transmisión oral...</span>
+        <div class="card-content">
+         <p class="full-description">Alexander Graham Bell patenta el teléfono y lo presenta públicamente en la Exposición de Filadelfia, transformando la comunicación oral a distancia y consolidando uno de los inventos más trascendentales del siglo XIX (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1887">
-                    <img src="images/Gemini_Generated_Image_t78k80t78k80t78k.png" alt="Ondas Hertzianas">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1887</span>
-                    <h3 class="card-title">Ondas Hertzianas</h3>
-                    <span class="summary-text">Bases de la comunicación inalámbrica...</span>
-                    <div class="card-content">
-                        <p class="full-description">Heinrich Hertz demuestra experimentalmente que la electricidad y el magnetismo pueden aplicarse a la transmisión electromagnética, sentando las bases científicas de la comunicación inalámbrica (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1887"></div>
+       <div class="card-header">
+        <span class="date-tag">1887</span>
+        <h3 class="card-title">Ondas Hertzianas</h3><span class="summary-text">Bases de la comunicación inalámbrica...</span>
+        <div class="card-content">
+         <p class="full-description">Heinrich Hertz demuestra experimentalmente que la electricidad y el magnetismo pueden aplicarse a la transmisión electromagnética, sentando las bases científicas de la comunicación inalámbrica (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1895">
-                    <img src="images/Gemini_Generated_Image_j3uh9sj3uh9sj3uh.png" alt="Radiocomunicación">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1895</span>
-                    <h3 class="card-title">Radiocomunicación</h3>
-                    <span class="summary-text">Marconi y el primer sistema funcional...</span>
-                    <div class="card-content">
-                        <p class="full-description">Guglielmo Marconi convierte las teorías de transmisión inalámbrica en un sistema de radio funcional, dando inicio a la era de la radiocomunicación (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1895"></div>
+       <div class="card-header">
+        <span class="date-tag">1895</span>
+        <h3 class="card-title">Radiocomunicación</h3><span class="summary-text">Marconi y el primer sistema funcional...</span>
+        <div class="card-content">
+         <p class="full-description">Guglielmo Marconi convierte las teorías de transmisión inalámbrica en un sistema de radio funcional, dando inicio a la era de la radiocomunicación (Adams, 1994).</p>
         </div>
+       </div>
+      </div>
+     </div>
     </div>
-
-    <!-- SIGLO XX -->
     <div class="era-section">
-        <div class="era-title">Siglo XX</div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1901">
-                    <img src="images/Gemini_Generated_Image_egqdfdegqdfdegqd.png" alt="Radio Transatlántica">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1901</span>
-                    <h3 class="card-title">Radio Transatlántica</h3>
-                    <span class="summary-text">Señal global y código Teletipo Murray...</span>
-                    <div class="card-content">
-                        <p class="full-description">Marconi recibe la primera señal de radio transatlántica; ese mismo año se publica el código Teletipo Murray, fortaleciendo la automatización de la transmisión de mensajes (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+     <div class="era-title">
+      Siglo XX
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1901"></div>
+       <div class="card-header">
+        <span class="date-tag">1901</span>
+        <h3 class="card-title">Radio Transatlántica</h3><span class="summary-text">Señal global y código Teletipo Murray...</span>
+        <div class="card-content">
+         <p class="full-description">Marconi recibe la primera señal de radio transatlántica; ese mismo año se publica el código Teletipo Murray, fortaleciendo la automatización de la transmisión de mensajes (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1906">
-                    <img src="images/Gemini_Generated_Image_3bn7an3bn7an3bn7.png" alt="Estandarización Radio">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1906</span>
-                    <h3 class="card-title">Estandarización Radio</h3>
-                    <span class="summary-text">Fundación de la IEC e inicios de programas...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se transmite el primer programa de radio en América y se funda la International Electrotechnical Commission (IEC), impulsando la estandarización técnica internacional (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1906"></div>
+       <div class="card-header">
+        <span class="date-tag">1906</span>
+        <h3 class="card-title">Estandarización Radio</h3><span class="summary-text">Fundación de la IEC e inicios de programas...</span>
+        <div class="card-content">
+         <p class="full-description">Se transmite el primer programa de radio en América y se funda la International Electrotechnical Commission (IEC), impulsando la estandarización técnica internacional (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-1915">
-                    <img src="images/Gemini_Generated_Image_j1c9moj1c9moj1c9.png" alt="Voz e Imagen Continental">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1915</span>
-                    <h3 class="card-title">Voz e Imagen Continental</h3>
-                    <span class="summary-text">Llamada transcontinental y transmisión de fotos...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se realiza la primera llamada telefónica transcontinental en Estados Unidos y la primera transmisión de fotografía entre Nueva York y Los Ángeles, integrando voz e imagen (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-1915"></div>
+       <div class="card-header">
+        <span class="date-tag">1915</span>
+        <h3 class="card-title">Voz e Imagen Continental</h3><span class="summary-text">Llamada transcontinental y transmisión de fotos...</span>
+        <div class="card-content">
+         <p class="full-description">Se realiza la primera llamada telefónica transcontinental en Estados Unidos y la primera transmisión de fotografía entre Nueva York y Los Ángeles, integrando voz e imagen (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-tv">
-                    <img src="images/Gemini_Generated_Image_3pxaxf3pxaxf3pxa.png" alt="Televisión">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1925–1936</span>
-                    <h3 class="card-title">Televisión</h3>
-                    <span class="summary-text">John Logie Baird y emisiones regulares...</span>
-                    <div class="card-content">
-                        <p class="full-description">John Logie Baird logra transmitir una película en 1925 y, en 1936, comienzan las emisiones regulares de televisión desde el Alexander Palace en Londres, consolidando este medio masivo (Adams, 1994).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-tv"></div>
+       <div class="card-header">
+        <span class="date-tag">1925–1936</span>
+        <h3 class="card-title">Televisión</h3><span class="summary-text">John Logie Baird y emisiones regulares...</span>
+        <div class="card-content">
+         <p class="full-description">John Logie Baird logra transmitir una película en 1925 y, en 1936, comienzan las emisiones regulares de televisión desde el Alexander Palace en Londres, consolidando este medio masivo (Adams, 1994).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-comp">
-                    <img src="images/Gemini_Generated_Image_3rhmcd3rhmcd3rhm.png" alt="Era del Transistor">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1943–1948</span>
-                    <h3 class="card-title">Era del Transistor</h3>
-                    <span class="summary-text">ENIAC, Transistor y Teoría de Shannon...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se construye Coloso (1943) y posteriormente la ENIAC (1946), la primera computadora electrónica de gran escala. En 1947 se inventa el transistor, permitiendo la miniaturización de equipos, y en 1948 Claude Shannon publica la teoría matemática de la comunicación, base de la teoría de la información moderna (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-comp"></div>
+       <div class="card-header">
+        <span class="date-tag">1943–1948</span>
+        <h3 class="card-title">Era del Transistor</h3><span class="summary-text">ENIAC, Transistor y Teoría de Shannon...</span>
+        <div class="card-content">
+         <p class="full-description">Se construye Coloso (1943) y posteriormente la ENIAC (1946), la primera computadora electrónica de gran escala. En 1947 se inventa el transistor, permitiendo la miniaturización de equipos, y en 1948 Claude Shannon publica la teoría matemática de la comunicación, base de la teoría de la información moderna (Adams, 1994; Ríos et al., 1998).</p>
         </div>
-
-        <div class="timeline-item left">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-sat">
-                    <img src="images/Gemini_Generated_Image_xnu7bpxnu7bpxnu7.png" alt="Satélites y Fibra">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1957–1966</span>
-                    <h3 class="card-title">Satélites y Fibra</h3>
-                    <span class="summary-text">Sputnik I, Módems y Fibra Óptica...</span>
-                    <div class="card-content">
-                        <p class="full-description">El lanzamiento del Sputnik I inicia la era de las comunicaciones por satélite. En paralelo, se desarrollan los primeros módems y se fabrican los primeros cables de fibra óptica, ampliando la capacidad y velocidad de transmisión (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item left">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-sat"></div>
+       <div class="card-header">
+        <span class="date-tag">1957–1966</span>
+        <h3 class="card-title">Satélites y Fibra</h3><span class="summary-text">Sputnik I, Módems y Fibra Óptica...</span>
+        <div class="card-content">
+         <p class="full-description">El lanzamiento del Sputnik I inicia la era de las comunicaciones por satélite. En paralelo, se desarrollan los primeros módems y se fabrican los primeros cables de fibra óptica, ampliando la capacidad y velocidad de transmisión (Adams, 1994; Ríos et al., 1998).</p>
         </div>
-
-        <div class="timeline-item right">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="img-box" id="img-net">
-                    <img src="images/Gemini_Generated_Image_ssbk4assbk4assbk.png" alt="Internet Moderno">
-                </div>
-                <div class="card-header">
-                    <span class="date-tag">1969–1990</span>
-                    <h3 class="card-title">Internet Moderno</h3>
-                    <span class="summary-text">ARPANET, Ethernet y masificación...</span>
-                    <div class="card-content">
-                        <p class="full-description">Se implementan los protocolos de ARPANET, surgen estándares como ASCII, Ethernet y arquitecturas de red, y durante las décadas de 1980 y 1990 se masifican las computadoras personales y los servicios de Internet, consolidando las telecomunicaciones modernas (Adams, 1994; Ríos et al., 1998).</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="timeline-item right">
+      <div class="card" onclick="toggleCard(this)">
+       <div class="img-box" id="img-net"></div>
+       <div class="card-header">
+        <span class="date-tag">1969–1990</span>
+        <h3 class="card-title">Internet Moderno</h3><span class="summary-text">ARPANET, Ethernet y masificación...</span>
+        <div class="card-content">
+         <p class="full-description">Se implementan los protocolos de ARPANET, surgen estándares como ASCII, Ethernet y arquitecturas de red, y durante las décadas de 1980 y 1990 se masifican las computadoras personales y los servicios de Internet, consolidando las telecomunicaciones modernas (Adams, 1994; Ríos et al., 1998).</p>
         </div>
+       </div>
+      </div>
+     </div>
     </div>
-
-</div>
-
-<div class="sources-section">
+   </div>
+   <div class="sources-section">
     <h2 class="sources-title">Obras consultadas</h2>
     <div class="citation">
-        Adams, R. (1994). El desarrollo de la tecnología de las comunicaciones. En <i>Comunicaciones y acceso a la información en la biblioteca</i> (pp. 25-53). Fundación Germán Sánchez Ruipérez; Pirámide.
+     Adams, R. (1994). El desarrollo de la tecnología de las comunicaciones. En <i>Comunicaciones y acceso a la información en la biblioteca</i> (pp. 25-53). Fundación Germán Sánchez Ruipérez; Pirámide.
     </div>
     <div class="citation">
-        Ríos, A., Corona, A., & GS Comunicaciones. (1998). <i>Telecomunicaciones: Redes de datos</i>. McGraw Hill.
+     Ríos, A., Corona, A., &amp; GS Comunicaciones. (1998). <i>Telecomunicaciones: Redes de datos</i>. McGraw Hill.
     </div>
-</div>
+   </div>
+   <footer>
+    <p id="footer-text">© 2026 Telecomunicaciones en las Unidades de Información | Ana Gabriela Salazar Ramiro</p>
+    <div class="footer-credits">
+     Desarrollado con fines educativos y de investigación bibliográfica
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Códigos de todos los simuladores
+    const simulators = {
+      'img-antiquity': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000}canvas{display:block}#ui{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);color:#fff;text-align:center;font:0.8rem sans-serif;text-shadow:0 2px 4px #000}</style></head><body><canvas id="c"></canvas><div id="ui">Señales de Humo - Mantén presionado</div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,ps=[],fps=[],hold=0,fs={x:0,y:0};function r(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;fs={x:w/2,y:h-20}}window.onresize=r;r();class F{constructor(){this.reset()}reset(){this.x=fs.x+(Math.random()-0.5)*40;this.y=fs.y+20;this.vx=(Math.random()-0.5)*2;this.vy=-Math.random()*3-1;this.s=Math.random()*8+4;this.l=Math.random()*20+10;this.ml=this.l;this.c=['#F50','#F80','#FD0','#F63'][~~(Math.random()*4)]}update(){this.x+=this.vx;this.y+=this.vy;this.s*=0.95;this.l--;if(this.l<=0||this.s<0.5)this.reset()}draw(){ctx.globalCompositeOperation='screen';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=this.c;ctx.fill();ctx.globalCompositeOperation='source-over'}}class S{constructor(x,y,m=1){this.x=x+(Math.random()-0.5)*20;this.y=y;this.vx=(Math.random()-0.5)+0.3;this.vy=Math.random()*-1.5-0.5;this.s=(Math.random()*10+10)*m;this.l=250+Math.random()*100;this.ml=this.l;this.a=0.4+Math.random()*0.2;this.g=0.15;this.r=Math.random()*Math.PI*2;this.rs=(Math.random()-0.5)*0.02}update(){this.x+=this.vx;this.y+=this.vy;this.vx+=(Math.random()-0.5)*0.1;this.s+=this.g;this.a=(this.l/this.ml)*0.3;this.r+=this.rs;this.l--}draw(){if(this.l<=0)return;ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.r);const g=ctx.createRadialGradient(0,0,0,0,0,this.s);g.addColorStop(0,'rgba(200,200,200,'+this.a+')');g.addColorStop(0.4,'rgba(150,150,150,'+(this.a*0.5)+')');g.addColorStop(1,'rgba(100,100,100,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,this.s,0,Math.PI*2);ctx.fill();ctx.restore()}}for(let i=0;i<50;i++)fps.push(new F());function sH(){hold=1}function eH(){if(!hold)return;const i=Math.min(hold,100),pc=20+i*1.5,cs=1+i/40;for(let j=0;j<pc;j++){let sx=fs.x+(Math.random()-0.5)*i,sy=fs.y-20-Math.random()*i*0.5;ps.push(new S(sx,sy,cs))}hold=0}c.onmousedown=sH;c.onmouseup=eH;c.ontouchstart=sH;c.ontouchend=eH;function dL(){const sg=ctx.createLinearGradient(0,0,0,h);sg.addColorStop(0,'#4a6fa5');sg.addColorStop(0.6,'#d48c70');sg.addColorStop(1,'#e8b89e');ctx.fillStyle=sg;ctx.fillRect(0,0,w,h);ctx.fillStyle='#2c3e50';ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(0,h*0.7);ctx.lineTo(w*0.2,h*0.5);ctx.lineTo(w*0.5,h*0.75);ctx.lineTo(w*0.8,h*0.4);ctx.lineTo(w,h*0.65);ctx.lineTo(w,h);ctx.fill();ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(0,h*0.85);ctx.quadraticCurveTo(w/2,h*0.8,w,h*0.85);ctx.lineTo(w,h);ctx.fill()}function dB(){if(hold){ctx.fillStyle='#8B4513';ctx.save();ctx.translate(fs.x,fs.y-30);const sh=Math.sin(Date.now()/20)*2;ctx.beginPath();ctx.moveTo(-60,sh);ctx.lineTo(60,-sh);ctx.lineTo(50,40);ctx.lineTo(-50,40);ctx.closePath();ctx.fill();ctx.restore();if(Math.random()>0.8)ps.push(new S(fs.x+(Math.random()-0.5)*80,fs.y,0.5));hold++}}function a(){ctx.clearRect(0,0,w,h);dL();fps.forEach(p=>{p.update();p.draw()});if(!hold&&Math.random()>0.7)ps.push(new S(fs.x,fs.y-10,0.8));for(let i=ps.length-1;i>=0;i--){ps[i].update();ps[i].draw();if(ps[i].l<=0)ps.splice(i,1)}dB();requestAnimationFrame(a)}a()<\/script></body></html>`,
 
-<footer>
-    <p>&copy; 2026 Telecomunicaciones en las Unidades de Información | Ana Gabriela Salazar Ramiro</p>
-    <div class="footer-credits">Desarrollado con fines educativos y de investigación bibliográfica</div>
-</footer>
+      'img-mech': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c3e50,#3498db);font-family:sans-serif}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;text-align:center;text-shadow:0 2px 4px #000;pointer-events:none}h1{font-size:1rem;margin:5px 0;letter-spacing:1px}.btns{pointer-events:all;margin-top:10px}button{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:8px 16px;margin:0 5px;border-radius:20px;color:#fff;font-weight:bold;cursor:pointer;backdrop-filter:blur(5px);transition:all 0.3s;font-size:0.85rem}button:hover{background:rgba(255,255,255,0.3);transform:scale(1.05)}#msg{font-size:0.9rem;margin-top:10px;padding:8px 16px;background:rgba(0,0,0,0.3);border-radius:15px;min-width:200px}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>TELÉGRAFO ÓPTICO</h1><div class="btns"><button onclick="rotate('left')">◀ Izquierda</button><button onclick="rotate('vertical')">▲ Vertical</button><button onclick="rotate('right')">▶ Derecha</button></div><div id="msg">Posición: Reposo</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d'),msg=document.getElementById('msg');let w,h,angle=0,targetAngle=0,tower={x:0,y:0,h:0};const positions={left:-45,vertical:0,right:45};const messages={'-45':'Señal: ALERTA',0:'Señal: REPOSO',45:'Señal: AVANCE'};function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;tower={x:w/2,y:h*0.7,h:h*0.35}}window.onresize=resize;resize();function rotate(pos){targetAngle=positions[pos];msg.textContent=messages[targetAngle]}function drawTower(){ctx.fillStyle='#34495e';ctx.fillRect(tower.x-15,tower.y,30,tower.h);ctx.fillStyle='#2c3e50';ctx.fillRect(tower.x-20,tower.y,40,15);ctx.fillRect(tower.x-20,tower.y+tower.h-15,40,15);ctx.fillRect(tower.x-25,tower.y+tower.h,50,20)}function drawSemaphore(){ctx.save();ctx.translate(tower.x,tower.y+50);ctx.rotate((angle*Math.PI)/180);ctx.fillStyle='#e74c3c';ctx.fillRect(-80,-8,160,16);ctx.fillStyle='#c0392b';ctx.fillRect(-5,-8,10,16);ctx.restore()}function drawSky(){const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#1a2a3a');g.addColorStop(1,'#34495e');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,0.8)';for(let i=0;i<50;i++){ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h*0.5,Math.random()*2,0,Math.PI*2);ctx.fill()}}function drawGround(){ctx.fillStyle='#27ae60';ctx.fillRect(0,tower.y+tower.h+20,w,h)}function animate(){ctx.clearRect(0,0,w,h);drawSky();drawGround();drawTower();angle+=(targetAngle-angle)*0.1;drawSemaphore();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
 
-<script>
-    function toggleCard(card) {
-        const isActive = card.classList.contains('active');
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        if (!isActive) card.classList.add('active');
-    }
+      'img-1774': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#8B7355,#4A4038)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#FFE4B5;text-align:center;text-shadow:0 2px 4px #000;pointer-events:none}h1{font-size:1rem;margin:5px 0;letter-spacing:2px}button{pointer-events:all;background:rgba(255,228,181,0.2);border:1px solid #FFE4B5;padding:8px 16px;border-radius:20px;color:#FFE4B5;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s}button:hover{background:rgba(255,228,181,0.4);transform:scale(1.05)}.info{font-size:0.75rem;opacity:0.9;margin-top:5px}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>COMUNICACIÓN SUBTERRÁNEA 1774</h1><p class="info">Cables en conductos de madera</p><button onclick="transmit()">▶ Transmitir señal</button><div class="info" id="status">Sistema listo</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,particles=[],transmitting=false,progress=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();class Particle{constructor(x,y){this.x=x;this.y=y;this.vx=Math.random()-0.5;this.vy=Math.random()*-2;this.life=30;this.size=Math.random()*2+1}update(){this.x+=this.vx;this.y+=this.vy;this.life--}draw(){ctx.fillStyle='rgba(255,200,50,'+this.life/30+')';ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill()}}function drawTerrain(){ctx.fillStyle='#654321';ctx.fillRect(0,h*0.4,w,h*0.6);ctx.fillStyle='#8B6F47';for(let i=0;i<w;i+=20){ctx.fillRect(i,h*0.4,15,5);ctx.fillRect(i+5,h*0.35,10,5)}}function drawUnderground(){ctx.fillStyle='#3d2817';ctx.fillRect(w*0.1,h*0.5,w*0.8,h*0.25);ctx.strokeStyle='#8B7355';ctx.lineWidth=2;ctx.strokeRect(w*0.1,h*0.5,w*0.8,h*0.25);ctx.fillStyle='#2c2420';for(let i=0;i<5;i++){ctx.fillRect(w*0.1+i*w*0.18,h*0.5,2,h*0.25)}}function drawCables(){const sy=h*0.625;ctx.strokeStyle='#DAA520';ctx.lineWidth=3;for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(w*0.15+i*w*0.15,sy);ctx.lineTo(w*0.15+i*w*0.15+w*0.6,sy+h*0.1);ctx.stroke();if(transmitting&&progress>0.3){ctx.shadowBlur=20;ctx.shadowColor='#FFD700';ctx.globalAlpha=0.8;ctx.strokeStyle='#FFD700';ctx.stroke();ctx.globalAlpha=1;ctx.shadowBlur=0}}}function drawStations(){ctx.fillStyle='#8B4513';ctx.fillRect(w*0.08,h*0.35,30,30);ctx.fillStyle='#DAA520';ctx.font='bold 12px Arial';ctx.textAlign='center';ctx.fillText('E',w*0.23,h*0.42);ctx.fillStyle='#8B4513';ctx.fillRect(w*0.85,h*0.65,30,30);ctx.fillStyle='#DAA520';ctx.fillText('R',w*0.88,h*0.78)}function transmit(){if(transmitting)return;transmitting=true;progress=0;document.getElementById('status').textContent='Transmitiendo...';const interval=setInterval(()=>{progress+=0.02;for(let i=0;i<3;i++){particles.push(new Particle(w*0.15+Math.random()*w*0.7,h*0.5+Math.random()*h*0.25))}if(progress>=1){clearInterval(interval);transmitting=false;document.getElementById('status').textContent='✓ Señal subterránea recibida'}},50)}function animate(){ctx.fillStyle='#E8D4C4';ctx.fillRect(0,0,w,h);drawTerrain();drawUnderground();drawCables();drawStations();for(let i=particles.length-1;i>=0;i--){particles[i].update();particles[i].draw();if(particles[i].life<=0)particles.splice(i,1)}requestAnimationFrame(animate)}animate()<\/script></body></html>`,
 
-    // Simulador de señales de humo
-    const smokeSimCode = `
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><style>
-body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000}
-canvas{display:block}
-#ui{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);color:#fff;text-align:center;font:0.8rem sans-serif;text-shadow:0 2px 4px #000}
-</style></head><body>
-<canvas id="c"></canvas><div id="ui">Señales de Humo - Mantén presionado</div>
-<script>
-const c=document.getElementById('c'),ctx=c.getContext('2d');
-let w,h,ps=[],fps=[],hold=0,fs={x:0,y:0};
-function r(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;fs={x:w/2,y:h-20}}
-window.onresize=r;r();
-class F{constructor(){this.reset()}
-reset(){this.x=fs.x+(Math.random()-0.5)*40;this.y=fs.y+20;this.vx=(Math.random()-0.5)*2;this.vy=-Math.random()*3-1;this.s=Math.random()*8+4;this.l=Math.random()*20+10;this.ml=this.l;this.c=['#F50','#F80','#FD0','#F63'][~~(Math.random()*4)]}
-update(){this.x+=this.vx;this.y+=this.vy;this.s*=0.95;this.l--;if(this.l<=0||this.s<0.5)this.reset()}
-draw(){ctx.globalCompositeOperation='screen';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=this.c;ctx.fill();ctx.globalCompositeOperation='source-over'}}
-class S{constructor(x,y,m=1){this.x=x+(Math.random()-0.5)*20;this.y=y;this.vx=(Math.random()-0.5)+0.3;this.vy=Math.random()*-1.5-0.5;this.s=(Math.random()*10+10)*m;this.l=250+Math.random()*100;this.ml=this.l;this.a=0.4+Math.random()*0.2;this.g=0.15;this.r=Math.random()*Math.PI*2;this.rs=(Math.random()-0.5)*0.02}
-update(){this.x+=this.vx;this.y+=this.vy;this.vx+=(Math.random()-0.5)*0.1;this.s+=this.g;this.a=(this.l/this.ml)*0.3;this.r+=this.rs;this.l--}
-draw(){if(this.l<=0)return;ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.r);const g=ctx.createRadialGradient(0,0,0,0,0,this.s);g.addColorStop(0,\`rgba(200,200,200,\${this.a})\`);g.addColorStop(0.4,\`rgba(150,150,150,\${this.a*0.5})\`);g.addColorStop(1,'rgba(100,100,100,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,this.s,0,Math.PI*2);ctx.fill();ctx.restore()}}
-for(let i=0;i<50;i++)fps.push(new F());
-function sH(){hold=1}
-function eH(){if(!hold)return;const i=Math.min(hold,100),pc=20+i*1.5,cs=1+i/40;for(let j=0;j<pc;j++){let sx=fs.x+(Math.random()-0.5)*i,sy=fs.y-20-Math.random()*i*0.5;ps.push(new S(sx,sy,cs))}hold=0}
-c.onmousedown=sH;c.onmouseup=eH;c.ontouchstart=sH;c.ontouchend=eH;
-function dL(){const sg=ctx.createLinearGradient(0,0,0,h);sg.addColorStop(0,'#4a6fa5');sg.addColorStop(0.6,'#d48c70');sg.addColorStop(1,'#e8b89e');ctx.fillStyle=sg;ctx.fillRect(0,0,w,h);ctx.fillStyle='#2c3e50';ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(0,h*0.7);ctx.lineTo(w*0.2,h*0.5);ctx.lineTo(w*0.5,h*0.75);ctx.lineTo(w*0.8,h*0.4);ctx.lineTo(w,h*0.65);ctx.lineTo(w,h);ctx.fill();ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(0,h*0.85);ctx.quadraticCurveTo(w/2,h*0.8,w,h*0.85);ctx.lineTo(w,h);ctx.fill()}
-function dB(){if(hold){ctx.fillStyle='#8B4513';ctx.save();ctx.translate(fs.x,fs.y-30);const sh=Math.sin(Date.now()/20)*2;ctx.beginPath();ctx.moveTo(-60,sh);ctx.lineTo(60,-sh);ctx.lineTo(50,40);ctx.lineTo(-50,40);ctx.closePath();ctx.fill();ctx.restore();if(Math.random()>0.8)ps.push(new S(fs.x+(Math.random()-0.5)*80,fs.y,0.5));hold++}}
-function a(){ctx.clearRect(0,0,w,h);dL();fps.forEach(p=>{p.update();p.draw()});if(!hold&&Math.random()>0.7)ps.push(new S(fs.x,fs.y-10,0.8));for(let i=ps.length-1;i>=0;i--){ps[i].update();ps[i].draw();if(ps[i].l<=0)ps.splice(i,1)}dB();requestAnimationFrame(a)}a()
-<\/script></body></html>`;
+      'img-1787': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a3a52,#2d5a7b)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#87CEEB;text-align:center;text-shadow:0 2px 4px #000;font-family:monospace}h1{font-size:1rem;margin:5px 0;letter-spacing:1px}.info{font-size:0.75rem;opacity:0.85;margin:5px 0}input{width:200px;padding:6px;background:rgba(255,255,255,0.1);border:1px solid #87CEEB;color:#87CEEB;border-radius:5px;text-align:center;font-family:monospace}input:focus{outline:none;box-shadow:0 0 10px rgba(135,206,235,0.5)}.status{font-size:0.8rem;color:#98FB98;margin-top:8px}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>SISTEMA DE UN SOLO ALAMBRE 1787</h1><p class="info">Esferas sincronizadas para leer/escribir</p><input id="inp" type="text" placeholder="Letra (A-Z)..." maxlength="1"><div class="status" id="status">Ingrese una letra</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d'),inp=document.getElementById('inp');let w,h,spheres=[],current=0;const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;spheres=[]}window.onresize=resize;resize();inp.addEventListener('input',(e)=>{const l=e.target.value.toUpperCase();if(/[A-Z]/.test(l)){current=alphabet.indexOf(l[0]);startSync();document.getElementById('status').textContent='Transmitiendo: '+l[0];inp.value=''}});function startSync(){spheres=[];for(let i=0;i<26;i++){spheres.push({x:w*0.1+(w*0.8)*(i/25),y:h/2,char:alphabet[i],sync:i===current,phase:0,target:i===current?1:0})}}function drawWire(){ctx.strokeStyle='#CD853F';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(w*0.05,h/2);ctx.lineTo(w*0.95,h/2);ctx.stroke();ctx.strokeStyle='#8B4513';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w*0.05,h/2+3);ctx.lineTo(w*0.95,h/2+3);ctx.stroke()}function drawSpheres(){spheres.forEach(s=>{const r=15+(s.target*10);ctx.fillStyle=s.sync?'#FFD700':'#C0C0C0';ctx.shadowBlur=s.sync?20:5;ctx.shadowColor=s.sync?'#FFD700':'rgba(0,0,0,0.3)';ctx.beginPath();ctx.arc(s.x,s.y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#000';ctx.font='bold 10px Arial';ctx.textAlign='center';ctx.fillText(s.char,s.x,s.y+4);s.target=s.sync?Math.min(s.target+0.05,1):Math.max(s.target-0.05,0)})}function drawTerminals(){ctx.fillStyle='#8B4513';ctx.fillRect(w*0.02,h/2-15,20,30);ctx.fillStyle='#1a3a52';ctx.font='8px Arial';ctx.textAlign='center';ctx.fillText('T',w*0.12,h/2+5);ctx.fillStyle='#8B4513';ctx.fillRect(w*0.92,h/2-15,20,30);ctx.fillStyle='#1a3a52';ctx.fillText('R',w*0.88,h/2+5)}function animate(){ctx.fillStyle='#1a3a52';ctx.fillRect(0,0,w,h);drawWire();drawSpheres();drawTerminals();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
 
-    // Simulador de telégrafo óptico
-    const semaphoreCode = `
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><style>
-body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c3e50,#3498db);font-family:sans-serif}
-canvas{display:block}
-#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;text-align:center;text-shadow:0 2px 4px #000;pointer-events:none}
-h1{font-size:1rem;margin:5px 0;letter-spacing:1px}
-.btns{pointer-events:all;margin-top:10px}
-button{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:8px 16px;margin:0 5px;border-radius:20px;color:#fff;font-weight:bold;cursor:pointer;backdrop-filter:blur(5px);transition:all 0.3s;font-size:0.85rem}
-button:hover{background:rgba(255,255,255,0.3);transform:scale(1.05)}
-#msg{font-size:0.9rem;margin-top:10px;padding:8px 16px;background:rgba(0,0,0,0.3);border-radius:15px;min-width:200px}
-</style></head><body>
-<canvas id="c"></canvas>
-<div id="ui">
-<h1>TELÉGRAFO ÓPTICO</h1>
-<div class="btns">
-<button onclick="rotate('left')">◀ Izquierda</button>
-<button onclick="rotate('vertical')">▲ Vertical</button>
-<button onclick="rotate('right')">▶ Derecha</button>
-</div>
-<div id="msg">Posición: Reposo</div>
-</div>
-<script>
-const c=document.getElementById('c'),ctx=c.getContext('2d'),msg=document.getElementById('msg');
-let w,h,angle=0,targetAngle=0,tower={x:0,y:0,h:0};
-const positions={left:-45,vertical:0,right:45};
-const messages={'-45':'Señal: ALERTA',0:'Señal: REPOSO',45:'Señal: AVANCE'};
-function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;tower={x:w/2,y:h*0.7,h:h*0.35}}
-window.onresize=resize;resize();
-function rotate(pos){targetAngle=positions[pos];msg.textContent=messages[targetAngle]}
-function drawTower(){ctx.fillStyle='#34495e';ctx.fillRect(tower.x-15,tower.y,30,tower.h);ctx.fillStyle='#2c3e50';ctx.fillRect(tower.x-20,tower.y,40,15);ctx.fillRect(tower.x-20,tower.y+tower.h-15,40,15);ctx.fillRect(tower.x-25,tower.y+tower.h,50,20)}
-function drawSemaphore(){ctx.save();ctx.translate(tower.x,tower.y+50);ctx.rotate((angle*Math.PI)/180);ctx.fillStyle='#e74c3c';ctx.fillRect(-80,-8,160,16);ctx.fillStyle='#c0392b';ctx.fillRect(-5,-8,10,16);ctx.restore()}
-function drawSky(){const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#1a2a3a');g.addColorStop(1,'#34495e');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,0.8)';for(let i=0;i<50;i++){ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h*0.5,Math.random()*2,0,Math.PI*2);ctx.fill()}}
-function drawGround(){ctx.fillStyle='#27ae60';ctx.fillRect(0,tower.y+tower.h+20,w,h)}
-function animate(){ctx.clearRect(0,0,w,h);drawSky();drawGround();drawTower();angle+=(targetAngle-angle)*0.1;drawSemaphore();requestAnimationFrame(animate)}
-animate()
-<\/script></body></html>`;
+      'img-1795': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c1810,#4a3420)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#FFB347;text-align:center;pointer-events:none}h1{font-size:0.95rem;margin:5px 0;letter-spacing:1px}button{pointer-events:all;background:rgba(255,179,71,0.2);border:1px solid #FFB347;padding:8px 14px;border-radius:15px;color:#FFB347;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s;font-size:0.85rem}button:hover{background:rgba(255,179,71,0.4);transform:scale(1.05)}.info{font-size:0.7rem;opacity:0.8}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>SISTEMA DE SALVÁ 1795</h1><p class="info">Botellas de Leyden + Sistema Multialámbrico</p><button onclick="discharge()">⚡ DESCARGAR BOTELLAS</button><div class="info" id="status">Sistema cargado</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,sparks=[],charged=true,discharge_btn=false;class Spark{constructor(x,y){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*6;this.vy=(Math.random()-0.5)*6-2;this.life=25;this.size=Math.random()*2+1}update(){this.x+=this.vx;this.y+=this.vy;this.vy+=0.2;this.life--}draw(){ctx.fillStyle='rgba(255,200,0,'+this.life/25+')';ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill()}}function drawBottles(){for(let i=0;i<3;i++){const x=w*0.2+i*w*0.3;ctx.fillStyle=charged?'#90EE90':'#D3D3D3';ctx.fillRect(x-25,h*0.3,50,80);ctx.fillStyle='#228B22';ctx.fillRect(x-20,h*0.35,40,60);ctx.strokeStyle='#FFD700';ctx.lineWidth=charged?3:1;ctx.shadowBlur=charged?15:0;ctx.shadowColor='#FFD700';ctx.strokeRect(x-22,h*0.32,44,65);ctx.shadowBlur=0}}function drawWires(){ctx.strokeStyle='#CD853F';ctx.lineWidth=4;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(w*0.1,h*0.7);ctx.lineTo(w*0.1+i*w*0.2,h*0.7+i*h*0.15);ctx.stroke();if(discharge_btn){ctx.strokeStyle='#FFD700';ctx.lineWidth=6;ctx.shadowBlur=10;ctx.shadowColor='#FFD700';ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle='#CD853F';ctx.lineWidth=4}}}function drawReceiver(){ctx.fillStyle='#8B4513';ctx.fillRect(w*0.85,h*0.5,25,40);ctx.fillStyle='#FFD700';if(discharge_btn)ctx.shadowBlur=20,ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(w*0.875,h*0.55,8,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}function drawBackground(){const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#2c1810');g.addColorStop(1,'#4a3420');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='#1a0f0a';ctx.fillRect(0,h*0.85,w,h*0.15)}window.addEventListener('resize',()=>{w=innerWidth;h=innerHeight;c.width=w;c.height=h});w=innerWidth;h=innerHeight;c.width=w;c.height=h;window.discharge=function(){if(discharge_btn)return;discharge_btn=true;for(let i=0;i<30;i++){sparks.push(new Spark(w*0.5,h*0.5))}document.getElementById('status').textContent='Descargando...';setTimeout(()=>{discharge_btn=false;charged=false;document.getElementById('status').textContent='✓ Multialámbrico activado'},500)};function animate(){ctx.clearRect(0,0,w,h);drawBackground();drawBottles();drawWires();drawReceiver();for(let i=sparks.length-1;i>=0;i--){sparks[i].update();sparks[i].draw();if(sparks[i].life<=0)sparks.splice(i,1)}requestAnimationFrame(animate)}animate()<\/script></body></html>`,
 
-    // Simulador de experimento eléctrico de Watson 1746
-    const electricalCode = `
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><style>
-body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#16213e);font-family:sans-serif}
-canvas{display:block}
-#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;text-align:center;text-shadow:0 2px 4px #000;pointer-events:none;width:90%}
-h1{font-size:1rem;margin:5px 0;letter-spacing:1px}
-.btns{pointer-events:all;margin-top:10px}
-button{background:rgba(255,215,0,0.3);border:2px solid rgba(255,215,0,0.6);padding:10px 20px;margin:0 5px;border-radius:25px;color:#FFD700;font-weight:bold;cursor:pointer;backdrop-filter:blur(5px);transition:all 0.3s;font-size:0.9rem;text-shadow:0 0 10px rgba(255,215,0,0.5)}
-button:hover{background:rgba(255,215,0,0.5);transform:scale(1.05);box-shadow:0 0 20px rgba(255,215,0,0.6)}
-button:active{transform:scale(0.95)}
-#msg{font-size:0.85rem;margin-top:10px;padding:8px 16px;background:rgba(0,0,0,0.4);border-radius:15px;border:1px solid rgba(255,215,0,0.3)}
-</style></head><body>
-<canvas id="c"></canvas>
-<div id="ui">
-<h1>EXPERIMENTO DE WATSON 1746</h1>
-<p style="font-size:0.75rem;opacity:0.9">Transmisión eléctrica a 2 millas</p>
-<div class="btns">
-<button onclick="transmit()">⚡ TRANSMITIR CARGA</button>
-</div>
-<div id="msg">Sistema listo</div>
-</div>
-<script>
-const c=document.getElementById('c'),ctx=c.getContext('2d'),msg=document.getElementById('msg');
-let w,h,particles=[],isTransmitting=false,progress=0;
-function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}
-window.onresize=resize;resize();
-class Spark{constructor(x,y){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*4;this.vy=(Math.random()-0.5)*4;this.life=20+Math.random()*20;this.maxLife=this.life;this.size=Math.random()*3+2}
-update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.95;this.vy*=0.95;this.life--}
-draw(){if(this.life<=0)return;const alpha=(this.life/this.maxLife);ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle='#FFD700';ctx.shadowBlur=15;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
-function drawGenerator(){const x=w*0.15,y=h/2;ctx.fillStyle='#8B4513';ctx.fillRect(x-40,y-60,80,120);ctx.fillStyle='#FFD700';ctx.shadowBlur=20;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#B8860B';ctx.fillRect(x-5,y-60,10,60);ctx.fillStyle='#333';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('Fuente',x,y+80);ctx.fillText('Electrostática',x,y+95)}
-function drawReceiver(){const x=w*0.85,y=h/2;ctx.fillStyle='#654321';ctx.fillRect(x-35,y-50,70,100);ctx.strokeStyle='#FFD700';ctx.lineWidth=3;ctx.shadowBlur=15;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;if(isTransmitting&&progress>0.9){ctx.fillStyle='#FFD700';ctx.shadowBlur=25;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(x,y,15,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}ctx.fillStyle='#333';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('Receptor',x,y+70);ctx.fillText('(2 millas)',x,y+85)}
-function drawWire(){const x1=w*0.15+40,y1=h/2,x2=w*0.85-35,y2=h/2;ctx.strokeStyle='#666';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();if(isTransmitting){const segments=50;for(let i=0;i<=segments;i++){if(i/segments<=progress){const x=x1+(x2-x1)*(i/segments);const y=y1+(y2-y1)*(i/segments);const intensity=Math.sin((i/segments)*Math.PI);ctx.save();ctx.globalAlpha=intensity*0.8;ctx.strokeStyle='#FFD700';ctx.lineWidth=6;ctx.shadowBlur=15;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.moveTo(x-10,y);ctx.lineTo(x+10,y);ctx.stroke();ctx.restore();if(Math.random()>0.7){particles.push(new Spark(x,y))}}}}ctx.fillStyle='rgba(255,255,255,0.8)';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('Alambre de cobre',w/2,y1-20)}
-function transmit(){if(isTransmitting)return;isTransmitting=true;progress=0;msg.textContent='Transmitiendo carga eléctrica...';const interval=setInterval(()=>{progress+=0.02;if(progress>=1){clearInterval(interval);setTimeout(()=>{isTransmitting=false;progress=0;msg.textContent='✓ Transmisión exitosa - Sistema listo'},1000);msg.textContent='¡Carga recibida!'}},30)}
-function animate(){ctx.fillStyle='rgba(26,26,46,0.3)';ctx.fillRect(0,0,w,h);drawWire();drawGenerator();drawReceiver();for(let i=particles.length-1;i>=0;i--){particles[i].update();particles[i].draw();if(particles[i].life<=0)particles.splice(i,1)}requestAnimationFrame(animate)}
-animate()
-<\/script></body></html>`;
+      'img-1832': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c3e50,#34495e)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#3498db;text-align:center;font-family:monospace;pointer-events:none}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85;margin:3px 0}input{width:200px;padding:6px;background:rgba(52,152,219,0.1);border:1px solid #3498db;color:#3498db;border-radius:5px;text-align:center;font-family:monospace}input:focus{outline:none;box-shadow:0 0 10px rgba(52,152,219,0.5)}.status{font-size:0.8rem;color:#2ecc71;margin-top:8px}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>TELÉGRAFO DE MORSE 1832-1837</h1><p class="info">Punto (.) Raya (-) Espacio</p><input id="inp" type="text" placeholder="Letra (A-Z)..." maxlength="1"><div class="status" id="status">Listo para transmitir</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d'),inp=document.getElementById('inp');const morse={A:'.-',B:'-...',C:'-.-.',D:'-.',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..'};let w,h,signal='',signalIndex=0,transmitting=false,pulses=[];function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();inp.addEventListener('input',(e)=>{const l=e.target.value.toUpperCase();if(/[A-Z]/.test(l)&&morse[l]){signal=morse[l[0]];signalIndex=0;transmitting=true;document.getElementById('status').textContent='Enviando: '+signal;inp.value=''}});function drawKey(){ctx.fillStyle='#2c3e50';ctx.fillRect(w*0.4,h*0.5,w*0.2,h*0.15);ctx.strokeStyle='#34495e';ctx.lineWidth=2;ctx.strokeRect(w*0.4,h*0.5,w*0.2,h*0.15);ctx.fillStyle='#95a5a6';const keyPress=signalIndex<signal.length?0.8:0;ctx.fillRect(w*0.42,h*0.52+keyPress,w*0.16,h*0.13-keyPress);ctx.fillStyle='#34495e';ctx.font='12px Arial';ctx.textAlign='center';ctx.fillText('KEY',w*0.5,h*0.57+keyPress)}function drawCircuit(){ctx.strokeStyle='#95a5a6';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w*0.2,h*0.3);ctx.lineTo(w*0.8,h*0.3);ctx.lineTo(w*0.8,h*0.65);ctx.lineTo(w*0.2,h*0.65);ctx.closePath();ctx.stroke();ctx.fillStyle='#ecf0f1';ctx.font='10px Arial';ctx.textAlign='center';ctx.fillText('CIRCUITO DE TELEGRAFÍA',w*0.5,h*0.25)}function drawSignal(){if(signalIndex<signal.length){const current=signal[signalIndex];const isDot=current==='.';ctx.fillStyle='#e74c3c';ctx.shadowBlur=20;ctx.shadowColor='#e74c3c';const dur=isDot?30:90;const rect_w=isDot?30:90;ctx.fillRect(w*0.35,h*0.15,rect_w,20);ctx.shadowBlur=0;ctx.fillStyle='#ecf0f1';ctx.font='10px monospace';ctx.textAlign='center';ctx.fillText(current,w*0.35+rect_w/2,h*0.24)}}function animate(){ctx.fillStyle='#34495e';ctx.fillRect(0,0,w,h);drawCircuit();drawKey();drawSignal();if(transmitting&&signalIndex<signal.length){signalIndex++}else if(transmitting&&signalIndex>=signal.length){transmitting=false;document.getElementById('status').textContent='✓ Morse transmitido'}requestAnimationFrame(animate)}animate()<\/script></body></html>`,
 
-    function loadSim(id,code){
-        const container=document.getElementById(id);
-        if(!container)return;
-        container.innerHTML='';
-        const iframe=document.createElement('iframe');
+      'img-1834': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#0f3460)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#e94560;text-align:center;font-family:monospace}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(233,69,96,0.2);border:1px solid #e94560;padding:8px 14px;border-radius:15px;color:#e94560;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s}button:hover{background:rgba(233,69,96,0.4);transform:scale(1.05)}.info{font-size:0.7rem;opacity:0.8}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>MÁQUINA DE BABBAGE 1834</h1><p class="info">Procesamiento automático de cálculos</p><button onclick="calculate()">⚙ CALCULAR: 5²</button><div class="info" id="status">Sistema en espera</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,gears=[],calculating=false,progress=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawGear(x,y,r,teeth,angle){ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.fillStyle='#8B4513';ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();ctx.fillStyle='#CD853F';for(let i=0;i<teeth;i++){const a=(Math.PI*2/teeth)*i;ctx.save();ctx.rotate(a);ctx.fillRect(-5,r-10,10,10);ctx.restore()}ctx.fillStyle='#654321';ctx.beginPath();ctx.arc(0,0,r*0.4,0,Math.PI*2);ctx.fill();ctx.restore()}function drawMachine(){ctx.fillStyle='#1a1a2e';ctx.fillRect(w*0.1,h*0.2,w*0.8,h*0.6);ctx.strokeStyle='#e94560';ctx.lineWidth=2;ctx.strokeRect(w*0.1,h*0.2,w*0.8,h*0.6);ctx.fillStyle='#e94560';ctx.font='bold 10px Arial';ctx.textAlign='center';ctx.fillText('DIFFERENCE ENGINE',w*0.5,h*0.25)}function drawGears(){const rotations=calculating?progress*Math.PI*2:0;drawGear(w*0.25,h*0.5,40,12,rotations);drawGear(w*0.45,h*0.5,35,10,rotations*1.1);drawGear(w*0.65,h*0.5,30,8,rotations*1.3);drawGear(w*0.82,h*0.5,25,6,rotations*1.6)}function drawOutput(){ctx.fillStyle='#0f3460';ctx.fillRect(w*0.15,h*0.8,w*0.7,h*0.12);ctx.strokeStyle='#e94560';ctx.strokeRect(w*0.15,h*0.8,w*0.7,h*0.12);ctx.fillStyle='#e94560';ctx.font='14px monospace';ctx.textAlign='center';if(calculating){ctx.fillText('5² = '+Math.floor(25*progress),w*0.5,h*0.88)}else{ctx.fillText('5² = 25',w*0.5,h*0.88)}}window.calculate=function(){if(calculating)return;calculating=true;progress=0;document.getElementById('status').textContent='Calculando...';const interval=setInterval(()=>{progress+=0.02;if(progress>=1){clearInterval(interval);calculating=false;document.getElementById('status').textContent='✓ Cálculo completado'}},50)};function animate(){ctx.fillStyle='#0f3460';ctx.fillRect(0,0,w,h);drawMachine();drawGears();drawOutput();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1839': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a1a,#2a2a2a)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00ff00;text-align:center;font-family:monospace;text-shadow:0 0 10px #00ff00}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(0,255,0,0.1);border:1px solid #00ff00;padding:8px 14px;border-radius:15px;color:#00ff00;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s;box-shadow:0 0 5px rgba(0,255,0,0.3)}button:hover{background:rgba(0,255,0,0.2);box-shadow:0 0 15px rgba(0,255,0,0.6)}.info{font-size:0.7rem;opacity:0.8}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>SISTEMA WHEATSTONE 1839</h1><p class="info">Demostración: Euston ↔ Camden Town</p><button onclick="send()">📨 ENVIAR MENSAJE</button><div class="info" id="status">Sistema operativo</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,signal=false,particles=[],transmitting=false;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawStation(x,label){ctx.fillStyle='#1a6e1a';ctx.fillRect(x-30,h*0.35,60,60);ctx.strokeStyle='#00ff00';ctx.lineWidth=2;ctx.shadowBlur=10;ctx.shadowColor='#00ff00';ctx.strokeRect(x-30,h*0.35,60,60);ctx.shadowBlur=0;ctx.fillStyle='#00ff00';ctx.font='bold 10px monospace';ctx.textAlign='center';ctx.fillText(label,x,h*0.58);ctx.font='8px monospace';ctx.fillText(label==='E'?'Euston':'Camden',x,h*0.65)}function drawTelegraph(){ctx.strokeStyle='#00ff00';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w*0.2,h*0.65);ctx.quadraticCurveTo(w*0.5,h*0.2,w*0.8,h*0.65);ctx.stroke();if(signal){ctx.lineWidth=6;ctx.shadowBlur=15;ctx.shadowColor='#00ff00';ctx.stroke();ctx.shadowBlur=0}}function drawPulse(){if(signal){for(let i=0;i<8;i++){const t=(Date.now()%500)/500;const d=t*w*0.6;ctx.fillStyle='rgba(0,255,0,'+(1-t)+')';ctx.beginPath();ctx.arc(w*0.2+d,h*0.65,5,0,Math.PI*2);ctx.fill()}}}window.send=function(){if(transmitting)return;transmitting=true;signal=true;document.getElementById('status').textContent='Transmitiendo...';setTimeout(()=>{signal=false;transmitting=false;document.getElementById('status').textContent='✓ Mensaje recibido en Camden Town'},1500)};function animate(){ctx.fillStyle='#000';ctx.fillRect(0,0,w,h);drawStation(w*0.2,'E');drawStation(w*0.8,'R');drawTelegraph();drawPulse();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1843': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2a1a3a,#4a2a5a)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#d946ef;text-align:center;font-family:monospace}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(217,70,239,0.2);border:1px solid #d946ef;padding:8px 14px;border-radius:15px;color:#d946ef;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s}button:hover{background:rgba(217,70,239,0.4);transform:scale(1.05)}.info{font-size:0.7rem;opacity:0.8}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>ADA LOVELACE 1843</h1><p class="info">Tarjetas Perforadas - Programación</p><button onclick="punch()">🔧 PERFORAR TARJETA</button><div class="info" id="status">Sistema listo</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,cards=[],punching=false,cardCount=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawCard(x,y,holes){ctx.fillStyle='#e6d5ff';ctx.fillRect(x,y,100,60);ctx.strokeStyle='#4a2a5a';ctx.lineWidth=1;ctx.strokeRect(x,y,100,60);for(let i=0;i<8;i++){for(let j=0;j<holes[i];j++){ctx.fillStyle='#000';ctx.beginPath();ctx.arc(x+12+i*10,y+10+j*15,2,0,Math.PI*2);ctx.fill()}}}function drawCardStack(){for(let i=0;i<Math.min(cardCount,5);i++){drawCard(w*0.4-i*2,h*0.4-i*2,Array(8).fill(0).map(()=>Math.floor(Math.random()*3)))}}function drawPunchDevice(){ctx.fillStyle='#2a1a3a';ctx.fillRect(w*0.2,h*0.3,w*0.6,h*0.4);ctx.strokeStyle='#d946ef';ctx.lineWidth=2;ctx.shadowBlur=15;ctx.shadowColor='#d946ef';ctx.strokeRect(w*0.2,h*0.3,w*0.6,h*0.4);ctx.shadowBlur=0;ctx.fillStyle='#d946ef';ctx.font='bold 12px Arial';ctx.textAlign='center';ctx.fillText('MÁQUINA PERFORADORA',w*0.5,h*0.35);ctx.font='10px monospace';ctx.fillText('Tarjetas Procesadas: '+cardCount,w*0.5,h*0.65)}window.punch=function(){if(punching)return;punching=true;cardCount++;document.getElementById('status').textContent='Perforando tarjeta '+cardCount+'...';setTimeout(()=>{punching=false;document.getElementById('status').textContent='✓ Tarjeta '+cardCount+' completada'},600)};function animate(){ctx.fillStyle='#1a0a2a';ctx.fillRect(0,0,w,h);drawPunchDevice();drawCardStack();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1844': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a3a52,#2d5a7b)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#87CEEB;text-align:center;font-family:serif}h1{font-size:0.95rem;margin:5px 0;letter-spacing:1px}p{font-size:0.7rem;opacity:0.8;margin:3px 0}.info{color:#87CEEB;font-size:0.75rem}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>PRIMER SERVICIO PÚBLICO 1844</h1><p>Baltimore ↔ Washington</p><p class="info" id="status">Servicio operativo</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawCity(x,label){ctx.fillStyle='#8B4513';for(let i=0;i<5;i++){ctx.fillRect(x-60+i*30,h*0.4,25,50)}ctx.fillStyle='#87CEEB';ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText(label,x,h*0.65);ctx.fillStyle='#87CEEB';ctx.beginPath();ctx.arc(x,h*0.35,3,0,Math.PI*2);ctx.fill()}function drawTelegraphLine(){ctx.strokeStyle='#CD853F';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w*0.2,h*0.35);ctx.quadraticCurveTo(w*0.5,h*0.1,w*0.8,h*0.35);ctx.stroke();const t=Date.now()%2000;const progress=t/2000;ctx.fillStyle='#FFD700';ctx.shadowBlur=15;ctx.shadowColor='#FFD700';for(let i=0;i<5;i++){const angle=progress*Math.PI*2+i*Math.PI*0.4;const x=w*0.2+(w*0.6)*progress;const y=h*0.35-Math.sin(angle)*10;ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0}function drawSignalMeter(){ctx.fillStyle='#2d5a7b';ctx.fillRect(w*0.35,h*0.75,w*0.3,h*0.15);ctx.strokeStyle='#87CEEB';ctx.lineWidth=1;ctx.strokeRect(w*0.35,h*0.75,w*0.3,h*0.15);const meter=Math.sin(Date.now()/1000)*40+50;ctx.fillStyle='#FFD700';ctx.fillRect(w*0.37,h*0.82,meter*w*0.26/100,h*0.06);ctx.fillStyle='#87CEEB';ctx.font='8px monospace';ctx.textAlign='center';ctx.fillText('Señal: '+Math.floor(meter)+'%',w*0.5,h*0.92)}function animate(){ctx.fillStyle='#1a3a52';ctx.fillRect(0,0,w,h);drawCity(w*0.2,'BALTIMORE');drawCity(w*0.8,'WASHINGTON');drawTelegraphLine();drawSignalMeter();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1865': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c1810,#3d2817)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#d4a574;text-align:center;font-family:serif}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>CONFERENCIA DE PARÍS 1865</h1><p class="info">Normalización para interconexión</p><p class="info" id="status">Red internacional activa</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,countries=[{n:'París',x:0.3,y:0.3},{n:'Londres',x:0.4,y:0.2},{n:'Berlín',x:0.55,y:0.25},{n:'Viena',x:0.65,y:0.35},{n:'Italia',x:0.5,y:0.55}],time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawCountries(){countries.forEach(c=>{const x=w*c.x,y=h*c.y;ctx.fillStyle='#8B4513';ctx.beginPath();ctx.arc(x,y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle='#d4a574';ctx.font='9px serif';ctx.textAlign='center';ctx.fillText(c.n,x,y+25)})}function drawConnections(){time+=0.01;countries.forEach((c1,i)=>{countries.slice(i+1).forEach(c2=>{const x1=w*c1.x,y1=h*c1.y,x2=w*c2.x,y2=h*c2.y;ctx.strokeStyle='#d4a574';ctx.globalAlpha=0.3;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const t=(time*Math.PI*2)%(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)));const ratio=t/Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));const px=x1+(x2-x1)*ratio,py=y1+(y2-y1)*ratio;ctx.globalAlpha=1;ctx.fillStyle='#FFD700';ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fill()})})}function animate(){ctx.fillStyle='#2c1810';ctx.fillRect(0,0,w,h);ctx.globalAlpha=1;drawCountries();drawConnections();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1869': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#1a3a52,#0a1929)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#87CEEB;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>CABLE TRANSATLÁNTICO 1869</h1><p class="info">Conexión Europa - América</p><p class="info" id="status">Transmitiendo...</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,particles=[],time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawOcean(){const g=ctx.createLinearGradient(0,h*0.3,0,h);g.addColorStop(0,'#1a4d6d');g.addColorStop(1,'#0a2a3d');ctx.fillStyle=g;ctx.fillRect(0,h*0.3,w,h*0.7);for(let i=0;i<30;i++){ctx.strokeStyle='rgba(135,206,235,0.2)';ctx.lineWidth=1;ctx.beginPath();const waveX=(i*w/30+time*2)%w;ctx.quadraticCurveTo(waveX,h*0.3+Math.sin(time+i)*5,waveX+w/30,h*0.3);ctx.stroke()}}function drawContinents(){ctx.fillStyle='#2d5a3d';ctx.fillRect(0,h*0.3,w*0.2,h*0.7);ctx.fillStyle='#8B4513';ctx.fillRect(w*0.1,h*0.25,w*0.1,h*0.1);ctx.fillStyle='#87CEEB';ctx.font='10px Arial';ctx.textAlign='center';ctx.fillText('EUROPA',w*0.15,h*0.2);ctx.fillStyle='#2d5a3d';ctx.fillRect(w*0.8,h*0.3,w*0.2,h*0.7);ctx.fillStyle='#8B4513';ctx.fillRect(w*0.85,h*0.25,w*0.1,h*0.1);ctx.fillStyle='#87CEEB';ctx.fillText('AMÉRICA',w*0.85,h*0.2)}function drawCable(){ctx.strokeStyle='#CD853F';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(w*0.2,h*0.3);ctx.quadraticCurveTo(w*0.5,h*0.5,w*0.8,h*0.3);ctx.stroke();time+=0.01;for(let i=0;i<10;i++){const t=(time+i*0.1)%1;const x=w*0.2+t*(w*0.6);ctx.fillStyle='#FFD700';ctx.shadowBlur=10;ctx.shadowColor='#FFD700';ctx.beginPath();ctx.arc(x,h*0.3+Math.sin(t*Math.PI)*h*0.2,2,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0}function animate(){ctx.fillStyle='#1a3a52';ctx.fillRect(0,0,w,h);drawOcean();drawContinents();drawCable();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1876': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#3d2817,#5a3a2a)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#FFB347;text-align:center;font-family:serif}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(255,179,71,0.2);border:1px solid #FFB347;padding:8px 14px;border-radius:50%;width:60px;height:60px;color:#FFB347;font-weight:bold;cursor:pointer;transition:all 0.3s;font-size:1.2rem}button:hover{background:rgba(255,179,71,0.4);transform:scale(1.1)}.info{font-size:0.7rem;opacity:0.85;margin-top:5px}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>INVENCIÓN DEL TELÉFONO 1876</h1><button onclick="call()">📞</button><p class="info" id="status">Sistema listo</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,calling=false,waves=[],time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawPhone(x,label){ctx.fillStyle='#3d2817';ctx.fillRect(x-20,h*0.4,40,60);ctx.fillStyle='#FFB347';ctx.beginPath();ctx.arc(x-8,h*0.45,8,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+8,h*0.45,8,0,Math.PI*2);ctx.fill();ctx.fillStyle='#2c1810';ctx.beginPath();ctx.arc(x,h*0.65,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#FFB347';ctx.font='9px serif';ctx.textAlign='center';ctx.fillText(label,x,h*0.77)}function drawSignal(){if(calling){time+=0.1;for(let i=0;i<5;i++){const r=20+i*15+Math.sin(time)*5;ctx.strokeStyle='rgba(255,179,71,'+(1-i/5)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(w*0.25,h*0.4,r,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(w*0.75,h*0.4,r,0,Math.PI*2);ctx.stroke()}}}function drawWire(){ctx.strokeStyle='#CD853F';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w*0.15,h*0.65);ctx.quadraticCurveTo(w*0.5,h*0.2,w*0.85,h*0.65);ctx.stroke()}window.call=function(){if(calling)return;calling=true;document.getElementById('status').textContent='Llamada en progreso...';setTimeout(()=>{calling=false;document.getElementById('status').textContent='✓ Conversación completada'},2000)};function animate(){ctx.fillStyle='#3d2817';ctx.fillRect(0,0,w,h);drawPhone(w*0.25,'TRANSMISOR');drawPhone(w*0.75,'RECEPTOR');drawWire();drawSignal();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1887': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a0f2e,#2a1a4e)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#9D4EDD;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>ONDAS HERTZIANAS 1887</h1><p class="info">Bases científicas de comunicación inalámbrica</p><p class="info" id="status">Onda detectada</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawGenerator(){ctx.fillStyle='#3d2a5c';ctx.fillRect(w*0.1,h*0.3,50,100);ctx.strokeStyle='#9D4EDD';ctx.lineWidth=2;ctx.shadowBlur=10;ctx.shadowColor='#9D4EDD';ctx.strokeRect(w*0.1,h*0.3,50,100);ctx.shadowBlur=0;ctx.fillStyle='#9D4EDD';ctx.font='9px monospace';ctx.textAlign='center';ctx.fillText('GENERADOR',w*0.135,h*0.55)}function drawResonator(){ctx.fillStyle='#3d2a5c';ctx.fillRect(w*0.8,h*0.3,50,100);ctx.strokeStyle='#3a86ff';ctx.lineWidth=2;ctx.shadowBlur=10;ctx.shadowColor='#3a86ff';ctx.strokeRect(w*0.8,h*0.3,50,100);ctx.shadowBlur=0;ctx.fillStyle='#3a86ff';ctx.font='9px monospace';ctx.textAlign='center';ctx.fillText('RESONADOR',w*0.825,h*0.55)}function drawWaves(){time+=0.05;for(let i=0;i<8;i++){const alpha=1-i/8;ctx.strokeStyle='rgba(157,78,221,'+alpha+')';ctx.lineWidth=2;const r=20+i*30+Math.sin(time)*10;ctx.beginPath();ctx.arc(w*0.135,h*0.45,r,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='rgba(58,134,255,'+alpha+')';ctx.beginPath();ctx.arc(w*0.825,h*0.45,r,0,Math.PI*2);ctx.stroke()}}function drawField(){ctx.strokeStyle='rgba(157,78,221,0.3)';ctx.lineWidth=1;for(let i=-5;i<10;i++){const x=w*0.2+i*w*0.08+Math.sin(time+i)*5;ctx.beginPath();ctx.moveTo(x,h*0.2);ctx.lineTo(x,h*0.7);ctx.stroke()}ctx.fillStyle='rgba(157,78,221,0.2)';ctx.font='10px monospace';ctx.textAlign='center';ctx.fillText('Campo Electromagnético',w*0.5,h*0.15)}function animate(){ctx.fillStyle='#1a0f2e';ctx.fillRect(0,0,w,h);drawField();drawGenerator();drawResonator();drawWaves();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1895': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#16213e)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00d4ff;text-align:center;font-family:monospace}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(0,212,255,0.2);border:1px solid #00d4ff;padding:8px 14px;border-radius:15px;color:#00d4ff;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s}button:hover{background:rgba(0,212,255,0.4);transform:scale(1.05)}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>RADIOCOMUNICACIÓN 1895</h1><p class="info">Sistema de radio de Marconi</p><button onclick="broadcast()">📡 EMITIR</button><div class="info" id="status">Frecuencia estable</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,transmitting=false,time=0,particles=[];function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawAntenna(x){ctx.strokeStyle='#00d4ff';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,h*0.2);ctx.lineTo(x,h*0.5);ctx.stroke();for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(x-10-i*5,h*0.2+i*8);ctx.lineTo(x,h*0.2+i*8);ctx.stroke();ctx.beginPath();ctx.moveTo(x+10+i*5,h*0.2+i*8);ctx.lineTo(x,h*0.2+i*8);ctx.stroke()}}function drawRadioBox(x){ctx.fillStyle='#16213e';ctx.fillRect(x-40,h*0.55,80,60);ctx.strokeStyle='#00d4ff';ctx.lineWidth=2;ctx.shadowBlur=10;ctx.shadowColor='#00d4ff';ctx.strokeRect(x-40,h*0.55,80,60);ctx.shadowBlur=0}function drawWaveSignal(){if(transmitting){time+=0.1;for(let i=0;i<6;i++){const r=30+i*20;ctx.strokeStyle='rgba(0,212,255,'+(1-i/6)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(w*0.5,h*0.4,r,0,Math.PI*2);ctx.stroke()}}}window.broadcast=function(){if(transmitting)return;transmitting=true;document.getElementById('status').textContent='Transmitiendo...';setTimeout(()=>{transmitting=false;document.getElementById('status').textContent='✓ Frecuencia estable'},1500)};function animate(){ctx.fillStyle='#0f1623';ctx.fillRect(0,0,w,h);drawAntenna(w*0.25);drawRadioBox(w*0.25);drawAntenna(w*0.75);drawRadioBox(w*0.75);drawWaveSignal();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1901': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#1a2f4b,#0f1929)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00d4ff;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>RADIO TRANSATLÁNTICA 1901</h1><p class="info">Primera señal de radio transatlántica</p><p class="info" id="status">S - S - S (SOS)</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawContinents(){ctx.fillStyle='#2d5a3d';ctx.fillRect(0,h*0.3,w*0.25,h*0.7);ctx.fillStyle='#87CEEB';ctx.font='10px Arial';ctx.textAlign='center';ctx.fillText('CORNUAL',w*0.125,h*0.2);ctx.fillStyle='#2d5a3d';ctx.fillRect(w*0.75,h*0.3,w*0.25,h*0.7);ctx.fillStyle='#87CEEB';ctx.fillText('TERRANOVA',w*0.875,h*0.2)}function drawTowerSignal(x,label,morse){ctx.strokeStyle='#00d4ff';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,h*0.2);ctx.lineTo(x,h*0.5);ctx.stroke();for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x-8-i*4,h*0.22+i*6);ctx.lineTo(x,h*0.22+i*6);ctx.stroke();ctx.beginPath();ctx.moveTo(x+8+i*4,h*0.22+i*6);ctx.lineTo(x,h*0.22+i*6);ctx.stroke()}time+=0.01;for(let i=0;i<3;i++){const d=(time+i*0.2)%(morse.length*0.1);const r=30+d*100;ctx.strokeStyle='rgba(0,212,255,'+(1-d*3)+')';ctx.lineWidth=1;if(1-d*3>0)ctx.beginPath(),ctx.arc(x,h*0.35,r,0,Math.PI*2),ctx.stroke()}}function drawSignalPath(){ctx.strokeStyle='rgba(0,212,255,0.3)';ctx.lineWidth=2;ctx.beginPath();ctx.quadraticCurveTo(w*0.5,h*0.1,w*0.875,h*0.35);ctx.stroke()}function animate(){ctx.fillStyle='#1a2f4b';ctx.fillRect(0,0,w,h);ctx.fillStyle='#1a4d6d';ctx.fillRect(0,h*0.3,w,h*0.7);drawContinents();drawTowerSignal(w*0.125,'CORNUAL','...');drawTowerSignal(w*0.875,'TERRANOVA','...');drawSignalPath();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1906': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#2c1810,#4a3420)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#FFB347;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>ESTANDARIZACIÓN RADIO 1906</h1><p class="info">IEC + Primeros programas de radio</p><p class="info" id="status">Múltiples emisoras activas</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,stations=[],time=0;for(let i=0;i<6;i++){stations.push({x:0.1+i*0.15,y:0.3+Math.sin(i)*0.2,freq:550+i*50,active:false})}function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawStations(){stations.forEach((s,i)=>{const x=w*s.x,y=h*s.y;ctx.fillStyle='#8B4513';ctx.fillRect(x-15,y-15,30,30);ctx.strokeStyle='#FFB347';ctx.lineWidth=2;ctx.shadowBlur=5;ctx.shadowColor='#FFB347';ctx.strokeRect(x-15,y-15,30,30);ctx.shadowBlur=0;ctx.fillStyle='#FFB347';ctx.font='8px monospace';ctx.textAlign='center';ctx.fillText(s.freq,x,y+20);time+=0.01;const r=10+Math.sin(time+i)*5;ctx.strokeStyle='rgba(255,179,71,0.6)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke()})}function drawNetwork(){ctx.strokeStyle='rgba(255,179,71,0.4)';ctx.lineWidth=1;for(let i=0;i<stations.length;i++){for(let j=i+1;j<stations.length;j++){ctx.beginPath();ctx.moveTo(w*stations[i].x,h*stations[i].y);ctx.lineTo(w*stations[j].x,h*stations[j].y);ctx.stroke()}}}function animate(){ctx.fillStyle='#2c1810';ctx.fillRect(0,0,w,h);drawNetwork();drawStations();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-1915': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#2d3561)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#a0aec0;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}button{pointer-events:all;background:rgba(160,174,192,0.2);border:1px solid #a0aec0;padding:6px 12px;border-radius:10px;color:#a0aec0;font-weight:bold;cursor:pointer;margin:3px;transition:all 0.3s;font-size:0.75rem}button:hover{background:rgba(160,174,192,0.4);transform:scale(1.05)}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>VOZ E IMAGEN CONTINENTAL 1915</h1><p class="info">Transcontinental + Fotografía</p><button onclick="transmitVoice()">🔊 Transmitir voz</button><button onclick="transmitImage()">📸 Transmitir foto</button><p class="info" id="status">Sistema listo</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,transmitting=false,voiceWaves=false,imageData=false,time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawCity(x,label){ctx.fillStyle='#8B4513';for(let i=0;i<3;i++){ctx.fillRect(x-25+i*20,h*0.4,15,40)}ctx.fillStyle='#a0aec0';ctx.font='9px monospace';ctx.textAlign='center';ctx.fillText(label,x,h*0.65)}function drawVoiceSignal(){if(voiceWaves){time+=0.05;for(let i=-5;i<6;i++){const y=h*0.5+i*10;const x1=w*0.2,x2=w*0.8;ctx.strokeStyle='rgba(255,100,100,0.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x1,y);for(let j=0;j<=100;j++){const px=x1+(x2-x1)*(j/100);const py=y+Math.sin((px/w*10+time+i)*Math.PI)*5;j===0?ctx.moveTo(px,py):ctx.lineTo(px,py)}ctx.stroke()}}}function drawImageSignal(){if(imageData){ctx.fillStyle='rgba(100,200,255,0.3)';ctx.fillRect(w*0.15,h*0.25,w*0.7,h*0.2);ctx.strokeStyle='rgba(100,200,255,0.6)';ctx.lineWidth=2;ctx.strokeRect(w*0.15,h*0.25,w*0.7,h*0.2);ctx.fillStyle='rgba(100,200,255,0.1)';for(let i=0;i<20;i++){for(let j=0;j<20;j++){ctx.fillRect(w*0.15+i*w*0.035,h*0.25+j*h*0.01,w*0.03,h*0.008)}}}}window.transmitVoice=function(){if(transmitting)return;transmitting=true;voiceWaves=true;imageData=false;document.getElementById('status').textContent='Transmitiendo voz...';setTimeout(()=>{transmitting=false;voiceWaves=false;document.getElementById('status').textContent='✓ Voz recibida'},2000)};window.transmitImage=function(){if(transmitting)return;transmitting=true;imageData=true;voiceWaves=false;document.getElementById('status').textContent='Transmitiendo imagen...';setTimeout(()=>{transmitting=false;imageData=false;document.getElementById('status').textContent='✓ Imagen recibida'},2000)};function animate(){ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,w,h);drawCity(w*0.2,'NYC');drawCity(w*0.8,'LA');drawVoiceSignal();drawImageSignal();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-tv': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a1a1a,#2d2d2d)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00ff00;text-align:center;font-family:monospace;text-shadow:0 0 10px #00ff00}h1{font-size:0.95rem;margin:5px 0}button{pointer-events:all;background:rgba(0,255,0,0.1);border:1px solid #00ff00;padding:8px 14px;border-radius:15px;color:#00ff00;font-weight:bold;cursor:pointer;margin:5px;transition:all 0.3s;box-shadow:0 0 5px rgba(0,255,0,0.3)}button:hover{background:rgba(0,255,0,0.2);box-shadow:0 0 15px rgba(0,255,0,0.6)}.info{font-size:0.7rem;opacity:0.8}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>TELEVISIÓN 1925-1936</h1><p class="info">John Logie Baird - Transmisiones regulares</p><button onclick="startTV()">▶ INICIAR TRANSMISIÓN</button><div class="info" id="status">Sistema en espera</div></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,tvOn=false,scanline=0,time=0;function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawTV(){ctx.fillStyle='#1a1a1a';ctx.fillRect(w*0.2,h*0.15,w*0.6,h*0.65);ctx.strokeStyle='#00ff00';ctx.lineWidth=3;ctx.shadowBlur=20;ctx.shadowColor='#00ff00';ctx.strokeRect(w*0.2,h*0.15,w*0.6,h*0.65);ctx.shadowBlur=0;ctx.fillStyle='#004400';ctx.fillRect(w*0.22,h*0.17,w*0.56,h*0.61)}function drawImage(){if(tvOn){ctx.fillStyle='#000';ctx.fillRect(w*0.22,h*0.17,w*0.56,h*0.61);const s=30;for(let i=0;i<w*0.56/s;i++){for(let j=0;j<h*0.61/s;j++){const bright=Math.sin(time+i+j)*0.5+0.5;ctx.fillStyle='rgba(0,255,0,'+bright*0.8+')';ctx.fillRect(w*0.22+i*s,h*0.17+j*s,s-1,s-1)}}scanline++;time+=0.02;ctx.strokeStyle='rgba(0,255,0,0.3)';ctx.lineWidth=1;const sl=(scanline%100)*h*0.61/100;ctx.beginPath();ctx.moveTo(w*0.22,h*0.17+sl);ctx.lineTo(w*0.78,h*0.17+sl);ctx.stroke()}}window.startTV=function(){if(tvOn)return;tvOn=true;document.getElementById('status').textContent='Transmisión activa - Alexander Palace';setTimeout(()=>{tvOn=false;document.getElementById('status').textContent='Transmisión finalizada'},3000)};function animate(){ctx.fillStyle='#1a1a1a';ctx.fillRect(0,0,w,h);drawTV();drawImage();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-comp': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#1a0f2e,#2a1a4e)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#9D4EDD;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>ERA DEL TRANSISTOR 1943-1948</h1><p class="info">ENIAC, Transistor, Teoría de Shannon</p><p class="info" id="status">Procesando información...</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0,tubes=[];for(let i=0;i<15;i++){tubes.push({x:0.1+i*0.06,y:0.3+Math.sin(i)*0.2,heat:0})}function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawTube(x,y,heat){ctx.fillStyle='#2a1a4e';ctx.fillRect(x-8,y-20,16,40);ctx.strokeStyle='#9D4EDD';ctx.lineWidth=2;ctx.shadowBlur=heat*10;ctx.shadowColor='#9D4EDD';ctx.strokeRect(x-8,y-20,16,40);ctx.shadowBlur=0;ctx.fillStyle='rgba(157,78,221,'+heat+')';ctx.fillRect(x-6,y-18,12,36)}function drawVacuumTubes(){time+=0.01;tubes.forEach((t,i)=>{t.heat=Math.sin(time+i)*0.5+0.5;const x=w*t.x,y=h*t.y;drawTube(x,y,t.heat);ctx.fillStyle='#9D4EDD';ctx.font='8px monospace';ctx.textAlign='center';ctx.fillText('V'+(i+1),x,y+35)})}function drawCircuitry(){ctx.strokeStyle='rgba(157,78,221,0.3)';ctx.lineWidth=1;for(let i=0;i<w;i+=50){ctx.beginPath();ctx.moveTo(i,h*0.7);ctx.lineTo(i,h*0.9);ctx.stroke();if(i>0){ctx.beginPath();ctx.moveTo(i-25,h*0.7);ctx.lineTo(i+25,h*0.7);ctx.stroke()}}}function drawCounter(){ctx.fillStyle='#1a0f2e';ctx.fillRect(w*0.35,h*0.75,w*0.3,h*0.1);ctx.strokeStyle='#9D4EDD';ctx.strokeRect(w*0.35,h*0.75,w*0.3,h*0.1);ctx.fillStyle='#9D4EDD';ctx.font='12px monospace';ctx.textAlign='center';ctx.fillText('Bits/seg: '+(Math.floor(Math.sin(time)*1000+5000)),w*0.5,h*0.82)}function animate(){ctx.fillStyle='#1a0f2e';ctx.fillRect(0,0,w,h);drawCircuitry();drawVacuumTubes();drawCounter();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-sat': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#000814,#001d3d)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00d4ff;text-align:center}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>SATÉLITES Y FIBRA 1957-1966</h1><p class="info">Sputnik I, Módems, Fibra Óptica</p><p class="info" id="status">Satélite en órbita</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0,particles=[];function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawEarth(){ctx.fillStyle='#00a8e1';ctx.beginPath();ctx.arc(w*0.25,h*0.7,40,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#00ff00';ctx.lineWidth=1;ctx.strokeRect(w*0.15,h*0.6,20,20);ctx.strokeRect(w*0.35,h*0.65,20,15)}function drawSatellite(){time+=0.01;const angle=time*2;const x=w*0.25+Math.cos(angle)*100;const y=h*0.7+Math.sin(angle)*100;ctx.fillStyle='#FFD700';ctx.shadowBlur=15;ctx.shadowColor='#FFD700';ctx.fillRect(x-8,y-8,16,16);ctx.shadowBlur=0;ctx.strokeStyle='#FFD700';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,50,0,Math.PI*2);ctx.stroke()}function drawSignals(){time+=0.02;const sat_x=w*0.25+Math.cos(time*2)*100;const sat_y=h*0.7+Math.sin(time*2)*100;const earth_x=w*0.25;const earth_y=h*0.7;ctx.strokeStyle='rgba(0,212,255,0.6)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(earth_x,earth_y);ctx.lineTo(sat_x,sat_y);ctx.stroke();for(let i=0;i<5;i++){const t=(time+i*0.1)%1;const x=earth_x+t*(sat_x-earth_x);const y=earth_y+t*(sat_y-earth_y);ctx.fillStyle='rgba(0,212,255,'+(1-t)+')';ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill()}}function drawOtherCity(){ctx.fillStyle='#00a8e1';ctx.beginPath();ctx.arc(w*0.75,h*0.7,40,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#00ff00';ctx.lineWidth=1;ctx.strokeRect(w*0.65,h*0.6,20,20);ctx.strokeRect(w*0.85,h*0.65,20,15)}function animate(){ctx.fillStyle='#000814';ctx.fillRect(0,0,w,h);ctx.fillStyle='rgba(0,8,20,0.5)';for(let i=0;i<100;i++){ctx.fillRect(Math.random()*w,Math.random()*h,1,1)}drawEarth();drawSatellite();drawSignals();drawOtherCity();requestAnimationFrame(animate)}animate()<\/script></body></html>`,
+
+      'img-net': `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#0f0f1e,#1a1a2e)}canvas{display:block}#ui{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#00ff00;text-align:center;font-family:monospace;text-shadow:0 0 10px #00ff00}h1{font-size:0.95rem;margin:5px 0}.info{font-size:0.7rem;opacity:0.85}</style></head><body><canvas id="c"></canvas><div id="ui"><h1>INTERNET MODERNO 1969-1990</h1><p class="info">ARPANET, Ethernet, Masificación</p><p class="info" id="status">Red global conectada</p></div><script>const c=document.getElementById('c'),ctx=c.getContext('2d');let w,h,time=0,nodes=[],links=[];for(let i=0;i<12;i++){nodes.push({x:0.1+Math.random()*0.8,y:0.2+Math.random()*0.6,id:i})}for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){if(Math.random()>0.5){links.push({from:i,to:j})}}}function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}window.onresize=resize;resize();function drawNodes(){nodes.forEach(n=>{const x=w*n.x,y=h*n.y;ctx.fillStyle='#00ff00';ctx.shadowBlur=15;ctx.shadowColor='#00ff00';ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0})}function drawLinks(){time+=0.01;links.forEach(l=>{const n1=nodes[l.from],n2=nodes[l.to];const x1=w*n1.x,y1=h*n1.y,x2=w*n2.x,y2=h*n2.y;ctx.strokeStyle='rgba(0,255,0,0.4)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const t=(time+Math.random())%1;const x=x1+t*(x2-x1),y=y1+t*(y2-y1);ctx.fillStyle='#00ff00';ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill()})}function drawText(){ctx.fillStyle='rgba(0,255,0,0.6)';ctx.font='8px monospace';ctx.textAlign='center';nodes.forEach((n,i)=>{ctx.fillText('Node'+(i+1),w*n.x,h*n.y+15)})}function animate(){ctx.fillStyle='#0f0f1e';ctx.fillRect(0,0,w,h);drawLinks();drawNodes();drawText();requestAnimationFrame(animate)}animate()<\/script></body></html>`
+    };
+
+    function loadSim(id, code) {
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.innerHTML = '';
+        const iframe = document.createElement('iframe');
         container.appendChild(iframe);
         iframe.contentWindow.document.open();
         iframe.contentWindow.document.write(code);
         iframe.contentWindow.document.close();
     }
 
-    window.onload=()=>{
-        const observer=new IntersectionObserver(entries=>{
-            entries.forEach(entry=>{
-                if(entry.isIntersecting)entry.target.classList.add('visible');
-            });
-        },{threshold:0.1});
-        document.querySelectorAll('.timeline-item').forEach(item=>observer.observe(item));
-        loadSim('img-antiquity',smokeSimCode);
-        loadSim('img-mech',semaphoreCode);
-        loadSim('img-1746',electricalCode);
+    // Config del Element SDK
+    const defaultConfig = {
+        main_title: 'Origen y Desarrollo de las Telecomunicaciones',
+        main_subtitle: 'Cronología detallada basada en fuentes históricas',
+        footer_text: '© 2026 Telecomunicaciones en las Unidades de Información | Ana Gabriela Salazar Ramiro'
     };
-</script>
-</body>
+
+    async function onConfigChange(config) {
+        const title = config.main_title || defaultConfig.main_title;
+        const subtitle = config.main_subtitle || defaultConfig.main_subtitle;
+        const footerText = config.footer_text || defaultConfig.footer_text;
+
+        document.getElementById('main-title').textContent = title;
+        document.getElementById('main-subtitle').textContent = subtitle;
+        document.getElementById('footer-text').textContent = footerText;
+    }
+
+    function mapToCapabilities(config) {
+        return {
+            recolorables: [],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+        };
+    }
+
+    function mapToEditPanelValues(config) {
+        return new Map([
+            ['main_title', config.main_title || defaultConfig.main_title],
+            ['main_subtitle', config.main_subtitle || defaultConfig.main_subtitle],
+            ['footer_text', config.footer_text || defaultConfig.footer_text]
+        ]);
+    }
+
+    // Inicializar SDK
+    if (window.elementSdk) {
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange,
+            mapToCapabilities,
+            mapToEditPanelValues
+        });
+    }
+
+    // Inicializar
+    window.addEventListener('load', () => {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+
+        // Cargar todos los simuladores
+        Object.keys(simulators).forEach(key => {
+            loadSim(key, simulators[key]);
+        });
+    });
+
+    function toggleCard(card) {
+        const isActive = card.classList.contains('active');
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        if (!isActive) card.classList.add('active');
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ce9bdc613b8c692',t:'MTc3MTIxMDI2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
